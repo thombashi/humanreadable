@@ -10,7 +10,7 @@ import re
 from collections import OrderedDict, namedtuple
 
 from ._base import _BASE_ATTRS, HumanReadableValue
-from ._error import ParameterError
+from .error import ParameterError
 
 
 _PATTERN_TEMPLETE = r"\s?{}$"

@@ -12,7 +12,7 @@ import re
 import six
 from typepy import RealNumber
 
-from ._error import ParameterError, UnitNotFoundError
+from .error import ParameterError, UnitNotFoundError
 
 
 _BASE_ATTRS = ("name", "regexp")
