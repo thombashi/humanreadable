@@ -150,18 +150,6 @@ class Time(HumanReadableValue):
     def _text_units(self):
         return self._TEXT_UNITS
 
-    """
-    @property
-    def text_units(self):
-        return (
-            _HOUR_STR_UNITS,
-            _MINUTE_STR_UNITS,
-            _SEC_STR_UNITS,
-            _MSEC_STR_UNITS,
-            _USEC_STR_UNITS,
-        )
-    """
-
     @property
     def _units(self):
         return (
