@@ -100,23 +100,9 @@ class Time(HumanReadableValue):
         }
     )
 
-    def __eq__(self, other):
-        return self.seconds == other.seconds
-
-    def __ne__(self, other):
-        return self.seconds != other.seconds
-
-    def __lt__(self, other):
-        return self.seconds < other.seconds
-
-    def __le__(self, other):
-        return self.seconds <= other.seconds
-
-    def __gt__(self, other):
-        return self.seconds > other.seconds
-
-    def __ge__(self, other):
-        return self.seconds >= other.seconds
+    @classmethod
+    def get_text_units(cls):
+        return cls._TEXT_UNITS
 
     @property
     def days(self):
@@ -142,10 +128,6 @@ class Time(HumanReadableValue):
     def microseconds(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.MICROSECOND)
 
-    @classmethod
-    def get_text_units(cls):
-        return cls._TEXT_UNITS
-
     @property
     def _text_units(self):
         return self._TEXT_UNITS
@@ -160,6 +142,24 @@ class Time(HumanReadableValue):
             self.Unit.MILLISECOND,
             self.Unit.MICROSECOND,
         )
+
+    def __eq__(self, other):
+        return self.seconds == other.seconds
+
+    def __ne__(self, other):
+        return self.seconds != other.seconds
+
+    def __lt__(self, other):
+        return self.seconds < other.seconds
+
+    def __le__(self, other):
+        return self.seconds <= other.seconds
+
+    def __gt__(self, other):
+        return self.seconds > other.seconds
+
+    def __ge__(self, other):
+        return self.seconds >= other.seconds
 
     def validate(self, min_value=None, max_value=None):
         if min_value is not None:
