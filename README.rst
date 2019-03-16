@@ -36,6 +36,8 @@ Supported Unites
 Usage
 ============================================
 
+Basic usages
+-------------------------------------------
 :Sample Code:
     .. code-block:: python
 
@@ -56,13 +58,73 @@ Usage
     .. code-block::
 
         [Examples: humanreadable.Time]
-        120 sec to msecs -> 120000.0
-        120 sec to minutes -> 2.0
+        '120 sec' to msecs -> 120000.0
+        '120 sec' to minutes -> 2.0
 
         [Examples: humanreadable.BitPerSecond]
-        1 Gbps to Mbps -> 1000.0
-        1 Gbps to Kbps -> 1000000.0
-        1 Gbps to Kibps -> 953674.31640625
+        '1 Gbps' to Mbps -> 1000.0
+        '1 Gbps' to Kbps -> 1000000.0
+        '1 Gbps' to Kibps -> 953674.31640625
+
+
+Set default unit
+-------------------------------------------
+:Sample Code:
+    .. code-block:: python
+
+        import humanreadable as hr
+
+        print(hr.Time("1", default_unit=hr.Time.Unit.SECOND))
+
+:Output:
+    .. code-block::
+
+        1.0 seconds
+
+
+Units
+-------------------------------------------
+.. table:: Available units for ``humanreadable.Time``
+
+    +------------+----------------------------------------------------------+
+    |    Unit    |                Available specifiers (str)                |
+    +============+==========================================================+
+    |days        |``d``/``day``/``days``                                    |
+    +------------+----------------------------------------------------------+
+    |hours       |``h``/``hour``/``hours``                                  |
+    +------------+----------------------------------------------------------+
+    |minutes     |``m``/``min``/``mins``/``minute``/``minutes``             |
+    +------------+----------------------------------------------------------+
+    |seconds     |``s``/``sec``/``secs``/``second``/``seconds``             |
+    +------------+----------------------------------------------------------+
+    |milliseconds|``ms``/``msec``/``msecs``/``millisecond``/``milliseconds``|
+    +------------+----------------------------------------------------------+
+    |microseconds|``us``/``usec``/``usecs``/``microsecond``/``microseconds``|
+    +------------+----------------------------------------------------------+
+
+.. table:: Available units for ``humanreadable.BitPerSecond``
+
+    +-----+---------------------------+
+    |Unit |Available specifiers (str) |
+    +=====+===========================+
+    |bps  |``bps``/``bit/s``          |
+    +-----+---------------------------+
+    |Kbps |``[kK]bps``/``[kK]bit/s``  |
+    +-----+---------------------------+
+    |Kibps|``[kK]ibps``/``[kK]ibit/s``|
+    +-----+---------------------------+
+    |Mbps |``[mM]bps``/``[mM]bit/s``  |
+    +-----+---------------------------+
+    |Mibps|``[mM]ibps``/``[mM]ibit/s``|
+    +-----+---------------------------+
+    |Gbps |``[gG]bps``/``[gG]bit/s``  |
+    +-----+---------------------------+
+    |Gibps|``[gG]ibps``/``[gG]ibit/s``|
+    +-----+---------------------------+
+    |Tbps |``[tT]bps``/``[tT]bit/s``  |
+    +-----+---------------------------+
+    |Tibps|``[tT]ibps``/``[tT]ibit/s``|
+    +-----+---------------------------+
 
 
 Installation
