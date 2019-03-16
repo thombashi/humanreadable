@@ -54,7 +54,9 @@ setuptools.setup(
 
     author=pkg_info["__author__"],
     author_email=pkg_info["__email__"],
-    description="DESCRIPTION",
+    description=(
+        "humanreadable is a Python library to convert from human-readable values to Python values."
+    ),
     include_package_data=True,
     keywords=[""],
     license=pkg_info["__license__"],
