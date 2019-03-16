@@ -58,7 +58,7 @@ setuptools.setup(
         "humanreadable is a Python library to convert from human-readable values to Python values."
     ),
     include_package_data=True,
-    keywords=[""],
+    keywords=["human-readable", "converter"],
     license=pkg_info["__license__"],
     long_description=LONG_DESCRIPTION,
     packages=setuptools.find_packages(exclude=["test*"]),
