@@ -7,9 +7,30 @@ Summary
 ============================================
 humanreadable is a Python library to convert from human-readable values to Python values.
 
-- Supported unites:
-    - time (days, hours, minutes, seconds, ...)
-    - bit per seconds
+.. image:: https://badge.fury.io/py/humanreadable.svg
+    :target: https://badge.fury.io/py/humanreadable
+    :alt: PyPI package version
+
+.. image:: https://img.shields.io/pypi/pyversions/humanreadable.svg
+   :target: https://pypi.org/project/humanreadable
+    :alt: Supported Python versions
+
+.. image:: https://img.shields.io/travis/thombashi/humanreadable/master.svg?label=Linux%20CI
+    :target: https://travis-ci.org/thombashi/humanreadable
+    :alt: Linux CI status
+
+.. image:: https://img.shields.io/appveyor/ci/thombashi/humanreadable/master.svg?label=Windows%20CI
+    :target: https://ci.appveyor.com/project/thombashi/humanreadable
+
+.. image:: https://coveralls.io/repos/github/thombashi/humanreadable/badge.svg?branch=master
+    :target: https://coveralls.io/github/thombashi/humanreadable?branch=master
+    :alt: Test coverage
+
+
+Supported Unites
+-------------------------------------------
+- time (days, hours, minutes, seconds, ...)
+- bit per seconds
 
 
 Usage
