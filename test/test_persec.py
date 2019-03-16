@@ -7,9 +7,8 @@
 from __future__ import division
 
 import pytest
-from six import text_type
-
 from humanreadable import BitPerSecond, ParameterError, UnitNotFoundError
+from six import text_type
 
 
 TO_IEC = 1000 * (1000 / 1024)  # decimal prefixes to binary prefixes
