@@ -152,36 +152,72 @@ class BitPerSecond(HumanReadableValue):
         return int(self._number * self.__calc_coef(self._from_unit, self.Unit.BPS))
 
     @property
+    def byte_per_sec(self):
+        return self.bps / 8
+
+    @property
     def kilo_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.KBPS)
+
+    @property
+    def kilo_byte_per_sec(self):
+        return self.kilo_bps / 8
 
     @property
     def kibi_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.KIBPS)
 
     @property
+    def kibi_byte_per_sec(self):
+        return self.kibi_bps / 8
+
+    @property
     def mega_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.MBPS)
+
+    @property
+    def mega_byte_per_sec(self):
+        return self.mega_bps / 8
 
     @property
     def mebi_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.MIBPS)
 
     @property
+    def mebi_byte_per_sec(self):
+        return self.mebi_bps / 8
+
+    @property
     def giga_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.GBPS)
+
+    @property
+    def giga_byte_per_sec(self):
+        return self.giga_bps / 8
 
     @property
     def gibi_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.GIBPS)
 
     @property
+    def gibi_byte_per_sec(self):
+        return self.gibi_bps / 8
+
+    @property
     def tera_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.TBPS)
 
     @property
+    def tera_byte_per_sec(self):
+        return self.tera_bps / 8
+
+    @property
     def tebi_bps(self):
         return self._number * self.__calc_coef(self._from_unit, self.Unit.TIBPS)
+
+    @property
+    def tebi_byte_per_sec(self):
+        return self.tebi_bps / 8
 
     def get_as(self, unit):
         unit_maps = {

@@ -64,7 +64,9 @@ class Test_BitPerSecond_bps(object):
         ],
     )
     def test_normal(self, value, expected):
-        assert BitPerSecond(value).bps == expected
+        value = BitPerSecond(value)
+        assert value.bps == expected
+        assert value.byte_per_sec == value.bps / 8
 
 
 class Test_BitPerSecond_kbps(object):
@@ -83,7 +85,9 @@ class Test_BitPerSecond_kbps(object):
         ],
     )
     def test_normal_kilo(self, value, expected):
-        assert BitPerSecond(value).kilo_bps == expected
+        value = BitPerSecond(value)
+        assert value.kilo_bps == expected
+        assert value.kilo_byte_per_sec == value.kilo_bps / 8
 
     @pytest.mark.parametrize(
         ["value", "expected"],
@@ -99,7 +103,9 @@ class Test_BitPerSecond_kbps(object):
         ],
     )
     def test_normal_kibi(self, value, expected):
-        assert BitPerSecond(value).kibi_bps == expected
+        value = BitPerSecond(value)
+        assert value.kibi_bps == expected
+        assert value.kibi_byte_per_sec == value.kibi_bps / 8
 
 
 class Test_BitPerSecond_mbps(object):
@@ -118,7 +124,9 @@ class Test_BitPerSecond_mbps(object):
         ],
     )
     def test_normal_mega(self, value, expected):
-        assert BitPerSecond(value).mega_bps == expected
+        value = BitPerSecond(value)
+        assert value.mega_bps == expected
+        assert value.mega_byte_per_sec == value.mega_bps / 8
 
     @pytest.mark.parametrize(
         ["value", "expected"],
@@ -134,7 +142,9 @@ class Test_BitPerSecond_mbps(object):
         ],
     )
     def test_normal_mebi(self, value, expected):
-        assert BitPerSecond(value).mebi_bps == expected
+        value = BitPerSecond(value)
+        assert value.mebi_bps == expected
+        assert value.mebi_byte_per_sec == value.mebi_bps / 8
 
 
 class Test_BitPerSecond_gbps(object):
@@ -153,7 +163,9 @@ class Test_BitPerSecond_gbps(object):
         ],
     )
     def test_normal_giga(self, value, expected):
-        assert BitPerSecond(value).giga_bps == expected
+        value = BitPerSecond(value)
+        assert value.giga_bps == expected
+        assert value.giga_byte_per_sec == value.giga_bps / 8
 
     @pytest.mark.parametrize(
         ["value", "expected"],
@@ -169,7 +181,9 @@ class Test_BitPerSecond_gbps(object):
         ],
     )
     def test_normal_gibi(self, value, expected):
-        assert BitPerSecond(value).gibi_bps == expected
+        value = BitPerSecond(value)
+        assert value.gibi_bps == expected
+        assert value.gibi_byte_per_sec == value.gibi_bps / 8
 
 
 class Test_BitPerSecond_tbps(object):
@@ -188,7 +202,9 @@ class Test_BitPerSecond_tbps(object):
         ],
     )
     def test_normal_tera(self, value, expected):
-        assert BitPerSecond(value).tera_bps == expected
+        value = BitPerSecond(value)
+        assert value.tera_bps == expected
+        assert value.tera_byte_per_sec == value.tera_bps / 8
 
     @pytest.mark.parametrize(
         ["value", "expected"],
@@ -204,7 +220,9 @@ class Test_BitPerSecond_tbps(object):
         ],
     )
     def test_normal_gibi(self, value, expected):
-        assert BitPerSecond(value).tebi_bps == expected
+        value = BitPerSecond(value)
+        assert value.tebi_bps == expected
+        assert value.tebi_byte_per_sec == value.tebi_bps / 8
 
 
 class Test_Time_get_as(object):
