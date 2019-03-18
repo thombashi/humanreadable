@@ -36,6 +36,15 @@ class Test_repr(object):
         assert text_type(Time(value)) == expected
 
 
+class Test_eq(object):
+    @pytest.mark.parametrize(
+        ["lhs", "rhs", "expected"],
+        [["5seconds", "5.0 sec", True], ["60000ms", "1min", True], ["1 sec", "2 sec", False]],
+    )
+    def test_exception(self, lhs, rhs, expected):
+        assert (Time(lhs) == Time(rhs)) is expected
+
+
 class Test_Time_days(object):
     @pytest.mark.parametrize(["value", "expected"], [["12hours", 0.5], ["1day", 1], ["3 days", 3]])
     def test_normal(self, value, expected):

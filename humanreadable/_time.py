@@ -144,22 +144,22 @@ class Time(HumanReadableValue):
         )
 
     def __eq__(self, other):
-        return self.seconds == other.seconds
+        return self.microseconds == other.microseconds
 
     def __ne__(self, other):
-        return self.seconds != other.seconds
+        return self.microseconds != other.microseconds
 
     def __lt__(self, other):
-        return self.seconds < other.seconds
+        return self.microseconds < other.microseconds
 
     def __le__(self, other):
-        return self.seconds <= other.seconds
+        return self.microseconds <= other.microseconds
 
     def __gt__(self, other):
-        return self.seconds > other.seconds
+        return self.microseconds > other.microseconds
 
     def __ge__(self, other):
-        return self.seconds >= other.seconds
+        return self.microseconds >= other.microseconds
 
     def validate(self, min_value=None, max_value=None):
         if min_value is not None:
