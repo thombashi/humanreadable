@@ -8,6 +8,7 @@ from __future__ import absolute_import, division, unicode_literals
 
 import re
 from collections import OrderedDict, namedtuple
+from decimal import Decimal
 
 from ._base import _BASE_ATTRS, HumanReadableValue
 
@@ -157,7 +158,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def kilo_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.KBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.KBPS))
 
     @property
     def kilo_byte_per_sec(self):
@@ -165,7 +166,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def kibi_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.KIBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.KIBPS))
 
     @property
     def kibi_byte_per_sec(self):
@@ -173,7 +174,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def mega_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.MBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MBPS))
 
     @property
     def mega_byte_per_sec(self):
@@ -181,7 +182,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def mebi_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.MIBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MIBPS))
 
     @property
     def mebi_byte_per_sec(self):
@@ -189,7 +190,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def giga_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.GBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.GBPS))
 
     @property
     def giga_byte_per_sec(self):
@@ -197,7 +198,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def gibi_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.GIBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.GIBPS))
 
     @property
     def gibi_byte_per_sec(self):
@@ -205,7 +206,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def tera_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.TBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.TBPS))
 
     @property
     def tera_byte_per_sec(self):
@@ -213,7 +214,7 @@ class BitPerSecond(HumanReadableValue):
 
     @property
     def tebi_bps(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.TIBPS)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.TIBPS))
 
     @property
     def tebi_byte_per_sec(self):
@@ -253,6 +254,9 @@ class BitPerSecond(HumanReadableValue):
         return getattr(self, unit_maps[unit])
 
     def __calc_coef(self, from_unit, to_unit):
-        kilo = 1000 * from_unit.kilo_size / to_unit.kilo_size
+        if from_unit.kilo_size == to_unit.kilo_size:
+            return Decimal(from_unit.kilo_size ** (from_unit.factor - to_unit.factor))
 
-        return kilo ** (from_unit.factor - to_unit.factor)
+        return Decimal(from_unit.kilo_size ** from_unit.factor) / Decimal(
+            to_unit.kilo_size ** to_unit.factor
+        )

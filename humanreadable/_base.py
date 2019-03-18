@@ -8,6 +8,7 @@ from __future__ import absolute_import, division, unicode_literals
 
 import abc
 import re
+from decimal import Decimal
 
 import six
 from typepy import RealNumber
@@ -97,4 +98,4 @@ class HumanReadableValue(object):
                 "human-readable value should only include a number", value=readable_num
             )
 
-        return float(match.group())
+        return Decimal(match.group())

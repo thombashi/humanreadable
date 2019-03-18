@@ -31,7 +31,7 @@ class Test_constructor(object):
 
 
 class Test_repr(object):
-    @pytest.mark.parametrize(["value", "expected"], [["5seconds", "5.0 seconds"]])
+    @pytest.mark.parametrize(["value", "expected"], [["5seconds", "5 seconds"]])
     def test_exception(self, value, expected):
         assert text_type(Time(value)) == expected
 

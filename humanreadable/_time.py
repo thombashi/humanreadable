@@ -8,6 +8,7 @@ from __future__ import absolute_import, division, unicode_literals
 
 import re
 from collections import OrderedDict, namedtuple
+from decimal import Decimal
 
 from ._base import _BASE_ATTRS, HumanReadableValue
 from .error import ParameterError
@@ -106,27 +107,27 @@ class Time(HumanReadableValue):
 
     @property
     def days(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.DAY)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.DAY))
 
     @property
     def hours(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.HOUR)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.HOUR))
 
     @property
     def minutes(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.MINUTE)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MINUTE))
 
     @property
     def seconds(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.SECOND)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.SECOND))
 
     @property
     def milliseconds(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.MILLISECOND)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MILLISECOND))
 
     @property
     def microseconds(self):
-        return self._number * self.__calc_coef(self._from_unit, self.Unit.MICROSECOND)
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MICROSECOND))
 
     @property
     def _text_units(self):
@@ -197,8 +198,8 @@ class Time(HumanReadableValue):
         return getattr(self, unit_maps[unit])
 
     def __calc_coef(self, from_unit, to_unit):
-        thousand_coef = 1000 ** (to_unit.thousand_factor - from_unit.thousand_factor)
-        sixty_coef = 60 ** (to_unit.sixty_factor - from_unit.sixty_factor)
-        day_coef = 24 ** (to_unit.day_factor - from_unit.day_factor)
+        thousand_coef = Decimal(1000 ** (to_unit.thousand_factor - from_unit.thousand_factor))
+        sixty_coef = Decimal(60 ** (to_unit.sixty_factor - from_unit.sixty_factor))
+        day_coef = Decimal(24 ** (to_unit.day_factor - from_unit.day_factor))
 
         return day_coef * sixty_coef * thousand_coef
