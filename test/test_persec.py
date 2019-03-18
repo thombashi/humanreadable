@@ -4,7 +4,7 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import division
+from __future__ import division, print_function, unicode_literals
 
 import sys
 from decimal import Decimal
