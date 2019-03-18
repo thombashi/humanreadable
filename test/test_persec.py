@@ -42,6 +42,15 @@ class Test_BitPerSecond_repr(object):
         assert text_type(BitPerSecond(value)) == expected
 
 
+class Test_eq(object):
+    @pytest.mark.parametrize(
+        ["lhs", "rhs", "expected"],
+        [["5 bps", "5.0 bit/s", True], ["60000bps", "60 Kbps", True], ["1 bps", "2 bps", False]],
+    )
+    def test_exception(self, lhs, rhs, expected):
+        assert (BitPerSecond(lhs) == BitPerSecond(rhs)) is expected
+
+
 class Test_BitPerSecond_bps(object):
     @pytest.mark.parametrize(
         ["value", "expected"],

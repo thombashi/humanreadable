@@ -219,6 +219,24 @@ class BitPerSecond(HumanReadableValue):
     def tebi_byte_per_sec(self):
         return self.tebi_bps / 8
 
+    def __eq__(self, other):
+        return self.bps == other.bps
+
+    def __ne__(self, other):
+        return self.bps != other.bps
+
+    def __lt__(self, other):
+        return self.bps < other.bps
+
+    def __le__(self, other):
+        return self.bps <= other.bps
+
+    def __gt__(self, other):
+        return self.bps > other.bps
+
+    def __ge__(self, other):
+        return self.bps >= other.bps
+
     def get_as(self, unit):
         unit_maps = {
             self.Unit.BPS: "bps",
