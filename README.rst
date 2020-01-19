@@ -74,7 +74,8 @@ Basic usages
 Set default unit
 -------------------------------------------
 Unit for an instance is determined by input value.
-If a valid unit not found, ``default_unit`` will be used for the instance.
+If a valid unit not found, ``default_unit``
+will be used for the instance (defaults to ``None``).
 
 :Sample Code:
     .. code-block:: python
