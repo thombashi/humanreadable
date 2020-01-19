@@ -7,8 +7,9 @@
 from __future__ import division
 
 import pytest
-from humanreadable import ParameterError, Time
 from six import text_type
+
+from humanreadable import ParameterError, Time
 
 
 class Test_constructor(object):

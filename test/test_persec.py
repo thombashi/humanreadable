@@ -10,8 +10,9 @@ import sys
 from decimal import Decimal
 
 import pytest
-from humanreadable import BitPerSecond, ParameterError, UnitNotFoundError
 from six import text_type
+
+from humanreadable import BitPerSecond, ParameterError, UnitNotFoundError
 
 
 KILO = Decimal(1000 ** 1)
