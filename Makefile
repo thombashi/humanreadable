@@ -9,6 +9,11 @@ build:
 	@python setup.py clean --all
 	ls -lh dist/*
 
+.PHONY: check
+check:
+	@tox -e lint
+	travis lint
+
 .PHONY: clean
 clean:
 	@rm -rf $(PACKAGE)-*.*.*/ \
