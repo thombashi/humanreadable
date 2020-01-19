@@ -5,7 +5,7 @@
 
 Summary
 ============================================
-humanreadable is a Python library to convert from human-readable values to Python values.
+humanreadable is a Python library to convert from human-readable values to other units.
 
 .. image:: https://badge.fury.io/py/humanreadable.svg
     :target: https://badge.fury.io/py/humanreadable
@@ -15,9 +15,13 @@ humanreadable is a Python library to convert from human-readable values to Pytho
    :target: https://pypi.org/project/humanreadable
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/travis/thombashi/humanreadable/master.svg?label=Linux%20CI
+.. image:: https://img.shields.io/pypi/implementation/pathvalidate.svg
+    :target: https://pypi.org/project/pathvalidate
+    :alt: Supported Python implementations
+
+.. image:: https://img.shields.io/travis/thombashi/humanreadable/master.svg?label=Linux/macOS%20CI
     :target: https://travis-ci.org/thombashi/humanreadable
-    :alt: Linux CI status
+    :alt: Linux/macOS CI status
 
 .. image:: https://img.shields.io/appveyor/ci/thombashi/humanreadable/master.svg?label=Windows%20CI
     :target: https://ci.appveyor.com/project/thombashi/humanreadable
@@ -29,7 +33,7 @@ humanreadable is a Python library to convert from human-readable values to Pytho
 
 Supported Unites
 -------------------------------------------
-- time (days, hours, minutes, seconds, ...)
+- time (days, hours, minutes, seconds, etc.)
 - bit per seconds
 
 
@@ -69,6 +73,9 @@ Basic usages
 
 Set default unit
 -------------------------------------------
+Unit for an instance is determined by input value.
+If a valid unit not found, ``default_unit`` will be used for the instance.
+
 :Sample Code:
     .. code-block:: python
 
@@ -129,13 +136,13 @@ Units
 
 Installation
 ============================================
-Install from PyPI
+Installation: pip
 ------------------------------
 ::
 
     pip install humanreadable
 
-Install from PPA (for Ubuntu)
+Installation: apt (for Ubuntu)
 ------------------------------
 ::
 
