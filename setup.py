@@ -37,7 +37,6 @@ with open(os.path.join(REQUIREMENT_DIR, "requirements.txt")) as f:
 with open(os.path.join(REQUIREMENT_DIR, "test_requirements.txt")) as f:
     TESTS_REQUIRES = [line.strip() for line in f if line.strip()]
 
-cmdclass = get_release_command_class()
 
 setuptools.setup(
     name=MODULE_NAME,
@@ -81,5 +80,5 @@ setuptools.setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Text Processing",
     ],
-    cmdclass=cmdclass,
+    cmdclass=get_release_command_class(),
 )
