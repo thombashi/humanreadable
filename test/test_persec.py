@@ -40,6 +40,7 @@ class Test_BitPerSecond_constructor(object):
             ["-2m", ParameterError],
             ["2m", ParameterError],
             ["2ms", ParameterError],
+            ["two Gbps", ParameterError],
         ],
     )
     def test_exception(self, value, exception):

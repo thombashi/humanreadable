@@ -24,6 +24,7 @@ class Test_constructor(object):
             ["1k0 ", ParameterError],
             ["10kb", ParameterError],
             ["2micro", ParameterError],
+            ["two secs", ParameterError],
         ],
     )
     def test_exception(self, value, exception):
