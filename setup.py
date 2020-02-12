@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 import io
 import os.path
-import sys
 
 import setuptools
 
@@ -15,10 +14,6 @@ REQUIREMENT_DIR = "requirements"
 ENCODING = "utf8"
 
 pkg_info = {}
-
-
-def need_pytest():
-    return set(["pytest", "test", "ptr"]).intersection(sys.argv)
 
 
 def get_release_command_class():
@@ -42,9 +37,6 @@ with open(os.path.join(REQUIREMENT_DIR, "requirements.txt")) as f:
 with open(os.path.join(REQUIREMENT_DIR, "test_requirements.txt")) as f:
     TESTS_REQUIRES = [line.strip() for line in f if line.strip()]
 
-SETUPTOOLS_REQUIRES = ["setuptools>=38.3.0"]
-PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if need_pytest() else []
-
 cmdclass = get_release_command_class()
 
 setuptools.setup(
@@ -64,9 +56,7 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=["test*"]),
     project_urls={"Source": REPOSITORY_URL, "Tracker": "{:s}/issues".format(REPOSITORY_URL),},
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
-    install_requires=SETUPTOOLS_REQUIRES + INSTALL_REQUIRES,
-    setup_requires=SETUPTOOLS_REQUIRES + PYTEST_RUNNER_REQUIRES,
-    tests_require=TESTS_REQUIRES,
+    install_requires=INSTALL_REQUIRES,
     extras_require={
         "build": ["twine", "wheel"],
         "release": ["releasecmd>=0.2.0,<1"],
