@@ -56,7 +56,7 @@ setuptools.setup(
     project_urls={"Source": REPOSITORY_URL, "Tracker": "{:s}/issues".format(REPOSITORY_URL),},
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
     install_requires=INSTALL_REQUIRES,
-    extras_require={"release": ["releasecmd>=0.2.0,<1"], "test": TESTS_REQUIRES},
+    extras_require={"test": TESTS_REQUIRES},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
