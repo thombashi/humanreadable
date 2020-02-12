@@ -11,7 +11,7 @@ import re
 from decimal import Decimal
 
 import six
-from typepy import RealNumber
+from typepy import RealNumber, String
 
 from .error import ParameterError, UnitNotFoundError
 
@@ -59,6 +59,9 @@ class HumanReadableValue(object):
                 )
 
             return (readable_value, self._default_unit)
+
+        if not String(readable_value).is_type():
+            raise TypeError("readable_value must be a string")
 
         for unit in self._units:
             try:
