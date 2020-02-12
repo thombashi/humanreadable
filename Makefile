@@ -26,3 +26,7 @@ fmt:
 release:
 	@python setup.py release --sign
 	@make clean
+
+.PHONY: setup
+setup:
+	@pip install --upgrade -e .[test] tox
