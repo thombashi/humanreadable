@@ -74,7 +74,9 @@ class HumanReadableValue(object):
             except TypeError:
                 continue
 
-        return (readable_value, self._default_unit)
+        raise UnitNotFoundError(
+            "unit not found", value=readable_value, available_units=_get_unit_msg(self._text_units),
+        )
 
     def __preprocess(self, readable_value):
         if readable_value is None:
