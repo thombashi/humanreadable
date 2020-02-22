@@ -19,7 +19,7 @@ class ParameterError(ValueError):
         super(ParameterError, self).__init__(*args, **kwargs)
 
     def __str__(self, *args, **kwargs):
-        item_list = [ValueError.__str__(self, *args, **kwargs)]
+        item_list = [ValueError.__str__(self)]
         extra_msg_list = self._get_extra_msgs()
 
         if extra_msg_list:
