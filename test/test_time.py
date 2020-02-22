@@ -86,6 +86,18 @@ class Test_Time_seconds(object):
     def test_normal(self, value, expected):
         assert Time(value).seconds == expected
 
+    @pytest.mark.parametrize(
+        ["value", "default_unit", "expected"],
+        [
+            ["2", Time.Unit.SECOND, 2],
+            ["2", "seconds", 2],
+            ["2", Time.Unit.MINUTE, 120],
+            ["2", "minutes", 120],
+        ],
+    )
+    def test_normal_default_unit(self, value, default_unit, expected):
+        assert Time(value, default_unit=default_unit).seconds == expected
+
 
 class Test_Time_milliseconds(object):
     @pytest.mark.parametrize(
@@ -160,6 +172,7 @@ class Test_Time_get_as(object):
         ["value", "default_unit", "expected"],
         [
             ["2", Time.Unit.DAY, 2],
+            ["2", "day", 2],
             ["2", Time.Unit.HOUR, 2],
             ["2", Time.Unit.MINUTE, 2],
             ["2", Time.Unit.SECOND, 2],

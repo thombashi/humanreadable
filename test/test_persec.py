@@ -143,6 +143,21 @@ class Test_BitPerSecond_kbps(object):
         assert value.kibi_bps == expected
         assert value.kibi_byte_per_sec == value.kibi_bps / 8
 
+    @pytest.mark.parametrize(
+        ["value", "default_unit", "expected"],
+        [
+            ["2", BitPerSecond.Unit.KBPS, 2],
+            ["2", "kbps", 2],
+            ["2", BitPerSecond.Unit.MBPS, 2000],
+            ["2", "mbps", 2000],
+        ],
+    )
+    def test_normal_default_unit(self, value, default_unit, expected):
+        bps = BitPerSecond(value, default_unit=default_unit)
+        print(bps, file=sys.stderr)
+
+        assert bps.kilo_bps == expected
+
 
 class Test_BitPerSecond_mbps(object):
     @pytest.mark.parametrize(
@@ -271,8 +286,10 @@ class Test_Time_get_as(object):
             ["2Mbps", BitPerSecond.Unit.MBPS, 2],
             ["2Mibps", BitPerSecond.Unit.MIBPS, 2],
             ["2Gbps", BitPerSecond.Unit.GBPS, 2],
+            ["2Gbps", "gbps", 2],
             ["2Gibps", BitPerSecond.Unit.GIBPS, 2],
             ["2Tbps", BitPerSecond.Unit.TBPS, 2],
+            ["2Tbps", "tbps", 2],
             ["2Tibps", BitPerSecond.Unit.TIBPS, 2],
         ],
     )

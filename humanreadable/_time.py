@@ -194,8 +194,15 @@ class Time(HumanReadableValue):
             self.Unit.MILLISECOND: "milliseconds",
             self.Unit.MICROSECOND: "microseconds",
         }
+        unit = self._normalize_unit(unit)
 
         return getattr(self, unit_maps[unit])
+
+    def _normalize_unit(self, unit):
+        if isinstance(unit, TimeUnit):
+            return unit
+
+        return super(Time, self)._normalize_unit(unit)
 
     def __calc_coef(self, from_unit, to_unit):
         thousand_coef = Decimal(1000 ** (to_unit.thousand_factor - from_unit.thousand_factor))

@@ -39,7 +39,7 @@ class HumanReadableValue(object):
         pass
 
     def __init__(self, readable_value, default_unit=None):
-        self._default_unit = default_unit
+        self._default_unit = self._normalize_unit(default_unit)
         self._number, self._from_unit = self.__preprocess(readable_value)
 
     def __repr__(self):
@@ -48,6 +48,16 @@ class HumanReadableValue(object):
             items.append(self._from_unit.name)
 
         return " ".join(items)
+
+    def _normalize_unit(self, unit):
+        if unit is None:
+            return None
+
+        for u in self._text_units:
+            if u.regexp.search(unit):
+                return u
+
+        raise ValueError("unit not found: {}".format(unit))
 
     def __split_unit(self, readable_value):
         if RealNumber(readable_value).is_type():

@@ -114,7 +114,6 @@ class BitPerSecond(HumanReadableValue):
 
     _TEXT_UNITS = OrderedDict(
         {
-            Unit.BPS: _BPS_STR_UNITS,
             Unit.KBPS: _KBPS_STR_UNITS,
             Unit.KIBPS: _KIBPS_STR_UNITS,
             Unit.MBPS: _MBPS_STR_UNITS,
@@ -123,6 +122,7 @@ class BitPerSecond(HumanReadableValue):
             Unit.GIBPS: _GIBPS_STR_UNITS,
             Unit.TBPS: _TBPS_STR_UNITS,
             Unit.TIBPS: _TIBPS_STR_UNITS,
+            Unit.BPS: _BPS_STR_UNITS,
         }
     )
 
@@ -250,8 +250,15 @@ class BitPerSecond(HumanReadableValue):
             self.Unit.TBPS: "tera_bps",
             self.Unit.TIBPS: "tebi_bps",
         }
+        unit = self._normalize_unit(unit)
 
         return getattr(self, unit_maps[unit])
+
+    def _normalize_unit(self, unit):
+        if isinstance(unit, ByteUnit):
+            return unit
+
+        return super(BitPerSecond, self)._normalize_unit(unit)
 
     def __calc_coef(self, from_unit, to_unit):
         if from_unit.kilo_size == to_unit.kilo_size:
