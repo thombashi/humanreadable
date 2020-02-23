@@ -1,16 +1,11 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import division, print_function, unicode_literals
 
 import sys
 from decimal import Decimal
 
 import pytest
-from six import text_type
 
 from humanreadable import BitPerSecond, ParameterError, UnitNotFoundError
 
@@ -25,7 +20,7 @@ GIBI = Decimal(1024 ** 3)
 TEBI = Decimal(1024 ** 4)
 
 
-class Test_BitPerSecond_constructor(object):
+class Test_BitPerSecond_constructor:
     @pytest.mark.parametrize(
         ["value", "exception"],
         [
@@ -48,13 +43,13 @@ class Test_BitPerSecond_constructor(object):
             BitPerSecond(value).bps
 
 
-class Test_BitPerSecond_repr(object):
+class Test_BitPerSecond_repr:
     @pytest.mark.parametrize(["value", "expected"], [["2 Kbps", "2 Kbps"]])
     def test_exception(self, value, expected):
-        assert text_type(BitPerSecond(value)) == expected
+        assert str(BitPerSecond(value)) == expected
 
 
-class Test_eq(object):
+class Test_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [["5 bps", "5.0 bit/s", True], ["60000bps", "60 Kbps", True], ["1 bps", "2 bps", False]],
@@ -63,7 +58,7 @@ class Test_eq(object):
         assert (BitPerSecond(lhs) == BitPerSecond(rhs)) is expected
 
 
-class Test_less_than(object):
+class Test_less_than:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [["20 Gbps", "32Gbps", True], ["20 Gibps", "32Gbps", True], ["40 Gibps", "32Gbps", False]],
@@ -78,7 +73,7 @@ class Test_less_than(object):
         assert (lhs <= rhs) is expected
 
 
-class Test_BitPerSecond_bps(object):
+class Test_BitPerSecond_bps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -105,7 +100,7 @@ class Test_BitPerSecond_bps(object):
         assert value.byte_per_sec == value.bps / 8
 
 
-class Test_BitPerSecond_kbps(object):
+class Test_BitPerSecond_kbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -159,7 +154,7 @@ class Test_BitPerSecond_kbps(object):
         assert bps.kilo_bps == expected
 
 
-class Test_BitPerSecond_mbps(object):
+class Test_BitPerSecond_mbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -198,7 +193,7 @@ class Test_BitPerSecond_mbps(object):
         assert value.mebi_byte_per_sec == value.mebi_bps / 8
 
 
-class Test_BitPerSecond_gbps(object):
+class Test_BitPerSecond_gbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -237,7 +232,7 @@ class Test_BitPerSecond_gbps(object):
         assert value.gibi_byte_per_sec == value.gibi_bps / 8
 
 
-class Test_BitPerSecond_tbps(object):
+class Test_BitPerSecond_tbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -276,7 +271,7 @@ class Test_BitPerSecond_tbps(object):
         assert value.tebi_byte_per_sec == value.tebi_bps / 8
 
 
-class Test_Time_get_as(object):
+class Test_Time_get_as:
     @pytest.mark.parametrize(
         ["value", "default_unit", "expected"],
         [

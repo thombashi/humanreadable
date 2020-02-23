@@ -1,10 +1,6 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import absolute_import, division, unicode_literals
 
 import re
 from collections import OrderedDict, namedtuple
@@ -38,7 +34,7 @@ class BitPerSecond(HumanReadableValue):
             Human readable size (bit per second). e.g. 256 Mbps
     """
 
-    class Unit(object):
+    class Unit:
         BPS = ByteUnit(
             name="bps",
             regexp=re.compile(
@@ -258,7 +254,7 @@ class BitPerSecond(HumanReadableValue):
         if isinstance(unit, ByteUnit):
             return unit
 
-        return super(BitPerSecond, self)._normalize_unit(unit)
+        return super()._normalize_unit(unit)
 
     def __calc_coef(self, from_unit, to_unit):
         if from_unit.kilo_size == to_unit.kilo_size:

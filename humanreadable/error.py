@@ -1,10 +1,6 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import absolute_import, unicode_literals
 
 
 class ParameterError(ValueError):
@@ -16,7 +12,7 @@ class ParameterError(ValueError):
         self.__value = kwargs.pop("value", None)
         self.__expected = kwargs.pop("expected", None)
 
-        super(ParameterError, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def __str__(self, *args, **kwargs):
         item_list = [ValueError.__str__(self)]
@@ -46,7 +42,7 @@ class UnitNotFoundError(ParameterError):
     def __init__(self, *args, **kwargs):
         self.__available_units = kwargs.pop("available_units", None)
 
-        super(UnitNotFoundError, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def _get_extra_msgs(self):
         extra_msg_list = []
@@ -54,4 +50,4 @@ class UnitNotFoundError(ParameterError):
         if self.__available_units:
             extra_msg_list.append("available-units={}".format(self.__available_units))
 
-        return super(UnitNotFoundError, self)._get_extra_msgs() + extra_msg_list
+        return super()._get_extra_msgs() + extra_msg_list

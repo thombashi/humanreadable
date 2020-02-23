@@ -1,10 +1,6 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import absolute_import, division, unicode_literals
 
 import re
 from collections import OrderedDict, namedtuple
@@ -30,7 +26,7 @@ TimeUnit = namedtuple(
 
 
 class Time(HumanReadableValue):
-    class Unit(object):
+    class Unit:
         DAY = TimeUnit(
             name="days",
             regexp=re.compile(
@@ -202,7 +198,7 @@ class Time(HumanReadableValue):
         if isinstance(unit, TimeUnit):
             return unit
 
-        return super(Time, self)._normalize_unit(unit)
+        return super()._normalize_unit(unit)
 
     def __calc_coef(self, from_unit, to_unit):
         thousand_coef = Decimal(1000 ** (to_unit.thousand_factor - from_unit.thousand_factor))

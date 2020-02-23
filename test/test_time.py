@@ -1,18 +1,13 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import division
-
 import pytest
-from six import text_type
 
 from humanreadable import ParameterError, Time
 
 
-class Test_constructor(object):
+class Test_constructor:
     @pytest.mark.parametrize(
         ["value", "exception"],
         [
@@ -32,13 +27,13 @@ class Test_constructor(object):
             Time(value)
 
 
-class Test_repr(object):
+class Test_repr:
     @pytest.mark.parametrize(["value", "expected"], [["5seconds", "5 seconds"]])
     def test_exception(self, value, expected):
-        assert text_type(Time(value)) == expected
+        assert str(Time(value)) == expected
 
 
-class Test_eq(object):
+class Test_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [["5seconds", "5.0 sec", True], ["60000ms", "1min", True], ["1 sec", "2 sec", False]],
@@ -47,13 +42,13 @@ class Test_eq(object):
         assert (Time(lhs) == Time(rhs)) is expected
 
 
-class Test_Time_days(object):
+class Test_Time_days:
     @pytest.mark.parametrize(["value", "expected"], [["12hours", 0.5], ["1day", 1], ["3 days", 3]])
     def test_normal(self, value, expected):
         assert Time(value).days == expected
 
 
-class Test_Time_hours(object):
+class Test_Time_hours:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [["3600 seconds", 1], ["30minutes", 0.5], ["2hours", 2], ["1day", 24], ["3 days", 72]],
@@ -62,7 +57,7 @@ class Test_Time_hours(object):
         assert Time(value).hours == expected
 
 
-class Test_Time_minutes(object):
+class Test_Time_minutes:
     @pytest.mark.parametrize(
         ["value", "expected"], [["30 seconds", 0.5], ["60000ms", 1], ["1m", 1], ["2hour", 120]]
     )
@@ -70,7 +65,7 @@ class Test_Time_minutes(object):
         assert Time(value).minutes == expected
 
 
-class Test_Time_seconds(object):
+class Test_Time_seconds:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -99,7 +94,7 @@ class Test_Time_seconds(object):
         assert Time(value, default_unit=default_unit).seconds == expected
 
 
-class Test_Time_milliseconds(object):
+class Test_Time_milliseconds:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -122,7 +117,7 @@ class Test_Time_milliseconds(object):
         assert Time(value).milliseconds == expected
 
 
-class Test_Time_microseconds(object):
+class Test_Time_microseconds:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -137,7 +132,7 @@ class Test_Time_microseconds(object):
         assert Time(value).microseconds == expected
 
 
-class Test_Time_validate(object):
+class Test_Time_validate:
     @pytest.mark.parametrize(
         ["value", "min_value", "max_value"],
         [
@@ -167,7 +162,7 @@ class Test_Time_validate(object):
             Time(value).validate(min_value=min_value, max_value=max_value)
 
 
-class Test_Time_get_as(object):
+class Test_Time_get_as:
     @pytest.mark.parametrize(
         ["value", "default_unit", "expected"],
         [

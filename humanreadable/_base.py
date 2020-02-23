@@ -1,16 +1,11 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import absolute_import, division, unicode_literals
 
 import abc
 import re
 from decimal import Decimal
 
-import six
 from typepy import RealNumber, String
 
 from .error import ParameterError, UnitNotFoundError
@@ -24,8 +19,7 @@ def _get_unit_msg(text_units):
     return ", ".join([", ".join(values) for values in text_units.values()])
 
 
-@six.add_metaclass(abc.ABCMeta)
-class HumanReadableValue(object):
+class HumanReadableValue(metaclass=abc.ABCMeta):
     @abc.abstractproperty
     def _text_units(self):  # pragma: no cover
         pass
@@ -43,7 +37,7 @@ class HumanReadableValue(object):
         self._number, self._from_unit = self.__preprocess(readable_value)
 
     def __repr__(self):
-        items = [six.text_type(self._number)]
+        items = [str(self._number)]
         if self._from_unit.name:
             items.append(self._from_unit.name)
 
