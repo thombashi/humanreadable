@@ -294,4 +294,7 @@ class Test_Time_get_as(object):
         ],
     )
     def test_normal_default_unit(self, value, default_unit, expected):
-        assert BitPerSecond(value, default_unit=default_unit).get_as(default_unit) == expected
+        bps = BitPerSecond(value, default_unit=default_unit)
+        print(bps, file=sys.stderr)
+
+        assert bps.get_as(default_unit) == expected
