@@ -154,7 +154,6 @@ Installation: apt (for Ubuntu)
 
 Dependencies
 ============================================
-Python 2.7+ or 3.5+
+Python 3.5+
 
-- `six <https://pypi.org/project/six/>`__
 - `typepy <https://github.com/thombashi/typepy>`__
