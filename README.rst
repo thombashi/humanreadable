@@ -154,6 +154,5 @@ Installation: apt (for Ubuntu)
 
 Dependencies
 ============================================
-Python 3.5+
-
-- `typepy <https://github.com/thombashi/typepy>`__
+- Python 3.5+
+- `Python package dependencies (automatically installed) <https://github.com/thombashi/humanreadable/network/dependencies>`__
