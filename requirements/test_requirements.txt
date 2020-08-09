@@ -1,1 +1,2 @@
 pytest
+pytest-md-report>=0.0.11
