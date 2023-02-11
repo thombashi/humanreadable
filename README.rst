@@ -5,7 +5,7 @@
 
 Summary
 ============================================
-humanreadable is a Python library to convert from human-readable values to other units.
+humanreadable is a Python library to convert human-readable values to other units.
 
 .. image:: https://badge.fury.io/py/humanreadable.svg
     :target: https://badge.fury.io/py/humanreadable
@@ -19,12 +19,9 @@ humanreadable is a Python library to convert from human-readable values to other
     :target: https://pypi.org/project/pathvalidate
     :alt: Supported Python implementations
 
-.. image:: https://img.shields.io/travis/thombashi/humanreadable/master.svg?label=Linux/macOS%20CI
-    :target: https://travis-ci.org/thombashi/humanreadable
-    :alt: Linux/macOS CI status
-
-.. image:: https://img.shields.io/appveyor/ci/thombashi/humanreadable/master.svg?label=Windows%20CI
-    :target: https://ci.appveyor.com/project/thombashi/humanreadable
+.. image:: https://github.com/thombashi/humanreadable/actions/workflows/lint_and_test.yml/badge.svg
+    :target: https://github.com/thombashi/humanreadable/actions/workflows/lint_and_test.yml
+    :alt: CI status of Linux/macOS/Windows
 
 .. image:: https://coveralls.io/repos/github/thombashi/humanreadable/badge.svg?branch=master
     :target: https://coveralls.io/github/thombashi/humanreadable?branch=master
@@ -34,7 +31,7 @@ humanreadable is a Python library to convert from human-readable values to other
 Supported Unites
 -------------------------------------------
 - time (days, hours, minutes, seconds, etc.)
-- bit per seconds
+- bits per second
 
 
 Usage
@@ -74,8 +71,7 @@ Basic usages
 Set default unit
 -------------------------------------------
 Unit for an instance is determined by input value.
-If a valid unit not found, ``default_unit``
-will be used for the instance (defaults to ``None``).
+If a valid unit is not found, ``default_unit`` will be used for the instance (defaults to ``None``).
 
 :Sample Code:
     .. code-block:: python
@@ -154,5 +150,5 @@ Installation: apt (for Ubuntu)
 
 Dependencies
 ============================================
-- Python 3.5+
+- Python 3.7+
 - `Python package dependencies (automatically installed) <https://github.com/thombashi/humanreadable/network/dependencies>`__
