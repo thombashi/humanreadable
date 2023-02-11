@@ -11,6 +11,7 @@ from typepy import RealNumber, String
 
 from .error import ParameterError, UnitNotFoundError
 
+
 try:
     from typing import Protocol
 except ImportError:
