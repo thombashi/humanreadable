@@ -194,9 +194,10 @@ class Time(HumanReadableValue):
             self.Unit.MILLISECOND: "milliseconds",
             self.Unit.MICROSECOND: "microseconds",
         }
-        unit = self._normalize_unit(unit)
+        norm_unit = self._normalize_unit(unit)
+        assert norm_unit
 
-        return getattr(self, unit_maps[unit])
+        return getattr(self, unit_maps[norm_unit])
 
     def _normalize_unit(self, unit):
         if isinstance(unit, TimeUnit):
