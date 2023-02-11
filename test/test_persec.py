@@ -67,7 +67,7 @@ class Test_less_than:
         lhs = BitPerSecond(lhs)
         rhs = BitPerSecond(rhs)
 
-        print("lhs={}Mbps, rhs={}Mbps".format(lhs.mega_bps, rhs.mega_bps), file=sys.stderr)
+        print(f"lhs={lhs.mega_bps}Mbps, rhs={rhs.mega_bps}Mbps", file=sys.stderr)
 
         assert (lhs < rhs) is expected
         assert (lhs <= rhs) is expected
