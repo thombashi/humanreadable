@@ -5,11 +5,17 @@
 import abc
 import re
 from decimal import Decimal
-from typing import Dict, List, Optional, Pattern, Protocol, Tuple, Union, cast
+from typing import Dict, List, Optional, Pattern, Tuple, Union, cast
 
 from typepy import RealNumber, String
 
 from .error import ParameterError, UnitNotFoundError
+
+try:
+    from typing import Protocol
+except ImportError:
+    # typing.Protocol is only available starting from Python 3.8.
+    from ._typing import Protocol  # type: ignore
 
 
 class SupportsUnit(Protocol):

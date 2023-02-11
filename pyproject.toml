@@ -17,6 +17,7 @@ exclude = '''
     | dist
 )/
 | docs/conf.py
+| humanreadable/_typing.py
 '''
 target-version = ['py36', 'py37', 'py38', 'py39', 'py310']
 
