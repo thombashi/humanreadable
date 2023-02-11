@@ -51,6 +51,7 @@ skip_glob = [
     '*/.eggs/*',
     '*/.pytype/*',
     '*/.tox/*',
+    'humanreadable/_typing.py',
 ]
 
 [tool.mypy]
