@@ -5,9 +5,9 @@
 import re
 from collections import OrderedDict
 from decimal import Decimal
-from typing import NamedTuple, Pattern
+from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
-from ._base import HumanReadableValue
+from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap
 
 
 _PATTERN_TEMPLETE = r"\s?{}$"
@@ -113,7 +113,7 @@ class BitPerSecond(HumanReadableValue):
             factor=4,
         )
 
-    _TEXT_UNITS = OrderedDict(
+    _TEXT_UNITS: TextUnitsMap = OrderedDict(
         {
             Unit.KBPS: _KBPS_STR_UNITS,
             Unit.KIBPS: _KIBPS_STR_UNITS,
@@ -128,16 +128,16 @@ class BitPerSecond(HumanReadableValue):
     )
 
     @classmethod
-    def get_text_units(cls):
+    def get_text_units(cls) -> TextUnitsMap:
         return cls._TEXT_UNITS
 
     @property
-    def _text_units(self):
+    def _text_units(self) -> TextUnitsMap:
         return self._TEXT_UNITS
 
     @property
-    def _units(self):
-        return (
+    def _units(self) -> List[SupportsUnit]:
+        return [
             self.Unit.BPS,
             self.Unit.KBPS,
             self.Unit.KIBPS,
@@ -147,100 +147,100 @@ class BitPerSecond(HumanReadableValue):
             self.Unit.GIBPS,
             self.Unit.TBPS,
             self.Unit.TIBPS,
-        )
+        ]
 
     @property
-    def bps(self):
-        return int(self._number * self.__calc_coef(self._from_unit, self.Unit.BPS))
+    def bps(self) -> float:
+        return float(self._number * self.__calc_coef(self._from_unit, self.Unit.BPS))
 
     @property
-    def byte_per_sec(self):
+    def byte_per_sec(self) -> float:
         return self.bps / 8
 
     @property
-    def kilo_bps(self):
+    def kilo_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.KBPS))
 
     @property
-    def kilo_byte_per_sec(self):
+    def kilo_byte_per_sec(self) -> float:
         return self.kilo_bps / 8
 
     @property
-    def kibi_bps(self):
+    def kibi_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.KIBPS))
 
     @property
-    def kibi_byte_per_sec(self):
+    def kibi_byte_per_sec(self) -> float:
         return self.kibi_bps / 8
 
     @property
-    def mega_bps(self):
+    def mega_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MBPS))
 
     @property
-    def mega_byte_per_sec(self):
+    def mega_byte_per_sec(self) -> float:
         return self.mega_bps / 8
 
     @property
-    def mebi_bps(self):
+    def mebi_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MIBPS))
 
     @property
-    def mebi_byte_per_sec(self):
+    def mebi_byte_per_sec(self) -> float:
         return self.mebi_bps / 8
 
     @property
-    def giga_bps(self):
+    def giga_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.GBPS))
 
     @property
-    def giga_byte_per_sec(self):
+    def giga_byte_per_sec(self) -> float:
         return self.giga_bps / 8
 
     @property
-    def gibi_bps(self):
+    def gibi_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.GIBPS))
 
     @property
-    def gibi_byte_per_sec(self):
+    def gibi_byte_per_sec(self) -> float:
         return self.gibi_bps / 8
 
     @property
-    def tera_bps(self):
+    def tera_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.TBPS))
 
     @property
-    def tera_byte_per_sec(self):
+    def tera_byte_per_sec(self) -> float:
         return self.tera_bps / 8
 
     @property
-    def tebi_bps(self):
+    def tebi_bps(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.TIBPS))
 
     @property
-    def tebi_byte_per_sec(self):
+    def tebi_byte_per_sec(self) -> float:
         return self.tebi_bps / 8
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.bps == other.bps
 
-    def __ne__(self, other):
+    def __ne__(self, other) -> bool:
         return self.bps != other.bps
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         return self.bps < other.bps
 
-    def __le__(self, other):
+    def __le__(self, other) -> bool:
         return self.bps <= other.bps
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
         return self.bps > other.bps
 
-    def __ge__(self, other):
+    def __ge__(self, other) -> bool:
         return self.bps >= other.bps
 
-    def get_as(self, unit):
-        unit_maps = {
+    def get_as(self, unit: Union[str, SupportsUnit]) -> float:
+        unit_maps: Dict[SupportsUnit, str] = {
             self.Unit.BPS: "bps",
             self.Unit.KBPS: "kilo_bps",
             self.Unit.KIBPS: "kibi_bps",
@@ -256,16 +256,17 @@ class BitPerSecond(HumanReadableValue):
 
         return getattr(self, unit_maps[norm_unit])
 
-    def _normalize_unit(self, unit):
+    def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
         if isinstance(unit, ByteUnit):
             return unit
 
         return super()._normalize_unit(unit)
 
-    def __calc_coef(self, from_unit, to_unit):
-        if from_unit.kilo_size == to_unit.kilo_size:
-            return Decimal(from_unit.kilo_size ** (from_unit.factor - to_unit.factor))
+    def __calc_coef(self, from_unit: SupportsUnit, to_unit: ByteUnit) -> Decimal:
+        from_unit_bu = cast(ByteUnit, from_unit)
+        if from_unit_bu.kilo_size == to_unit.kilo_size:
+            return Decimal(from_unit_bu.kilo_size ** (from_unit_bu.factor - to_unit.factor))
 
-        return Decimal(from_unit.kilo_size**from_unit.factor) / Decimal(
+        return Decimal(from_unit_bu.kilo_size**from_unit_bu.factor) / Decimal(
             to_unit.kilo_size**to_unit.factor
         )

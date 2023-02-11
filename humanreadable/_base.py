@@ -5,54 +5,69 @@
 import abc
 import re
 from decimal import Decimal
+from typing import Dict, List, Optional, Pattern, Protocol, Tuple, Union, cast
 
 from typepy import RealNumber, String
 
 from .error import ParameterError, UnitNotFoundError
 
 
+class SupportsUnit(Protocol):
+    @property
+    def name(self) -> str:
+        ...
+
+    @property
+    def regexp(self) -> Pattern:
+        ...
+
+
+Units = List[str]
+TextUnitsMap = Dict[SupportsUnit, Units]
+
+
 _RE_NUMBER = re.compile(r"^[-\+]?[0-9\.]+$")
 
 
-def _get_unit_msg(text_units):
+def _get_unit_msg(text_units: TextUnitsMap) -> str:
     return ", ".join([", ".join(values) for values in text_units.values()])
 
 
 class HumanReadableValue(metaclass=abc.ABCMeta):
     @abc.abstractproperty
-    def _text_units(self):  # pragma: no cover
+    def _text_units(self) -> TextUnitsMap:  # pragma: no cover
         pass
 
     @abc.abstractproperty
-    def _units(self):  # pragma: no cover
+    def _units(self) -> List[SupportsUnit]:  # pragma: no cover
         pass
 
     @abc.abstractmethod
-    def get_as(self, unit):  # pragma: no cover
+    def get_as(self, unit: Union[str, SupportsUnit]) -> float:  # pragma: no cover
         pass
 
-    def __init__(self, readable_value, default_unit=None):
+    def __init__(self, readable_value: str, default_unit=None) -> None:
         self._default_unit = self._normalize_unit(default_unit)
         self._number, self._from_unit = self.__preprocess(readable_value)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         items = [str(self._number)]
         if self._from_unit.name:
             items.append(self._from_unit.name)
 
         return " ".join(items)
 
-    def _normalize_unit(self, unit):
+    def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
         if unit is None:
             return None
 
         for u in self._text_units:
-            if u.regexp.search(unit):
+            if u.regexp.search(cast(str, unit)):
                 return u
 
         raise ValueError(f"unit not found: {unit}")
 
-    def __split_unit(self, readable_value):
+    def __split_unit(self, readable_value: str) -> Tuple[str, SupportsUnit]:
         if RealNumber(readable_value).is_type():
             if self._default_unit is None:
                 raise UnitNotFoundError(
@@ -81,13 +96,12 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
             "unit not found", value=readable_value, available_units=_get_unit_msg(self._text_units)
         )
 
-    def __preprocess(self, readable_value):
+    def __preprocess(self, readable_value: str) -> Tuple[Decimal, SupportsUnit]:
         if readable_value is None:
             raise TypeError("readable_value must be a string")
 
-        number, from_unit = self.__split_unit(readable_value)
-        if number is not None:
-            number = self.__to_number(number)
+        number_str, from_unit = self.__split_unit(readable_value)
+        number = self.__to_number(number_str)
 
         if from_unit is None:
             raise UnitNotFoundError(
@@ -98,7 +112,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
 
         return (number, from_unit)
 
-    def __to_number(self, number_str):
+    def __to_number(self, number_str: str) -> Decimal:
         match = _RE_NUMBER.search(number_str)
         if not match:
             raise ParameterError(

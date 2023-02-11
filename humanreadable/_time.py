@@ -5,9 +5,9 @@
 import re
 from collections import OrderedDict
 from decimal import Decimal
-from typing import NamedTuple, Pattern
+from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
-from ._base import HumanReadableValue
+from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap
 from .error import ParameterError
 
 
@@ -90,7 +90,7 @@ class Time(HumanReadableValue):
             day_factor=1,
         )
 
-    _TEXT_UNITS = OrderedDict(
+    _TEXT_UNITS: TextUnitsMap = OrderedDict(
         {
             Unit.DAY: _DAY_STR_UNITS,
             Unit.HOUR: _HOUR_STR_UNITS,
@@ -102,64 +102,64 @@ class Time(HumanReadableValue):
     )
 
     @classmethod
-    def get_text_units(cls):
+    def get_text_units(cls) -> TextUnitsMap:
         return cls._TEXT_UNITS
 
     @property
-    def days(self):
+    def days(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.DAY))
 
     @property
-    def hours(self):
+    def hours(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.HOUR))
 
     @property
-    def minutes(self):
+    def minutes(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MINUTE))
 
     @property
-    def seconds(self):
+    def seconds(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.SECOND))
 
     @property
-    def milliseconds(self):
+    def milliseconds(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MILLISECOND))
 
     @property
-    def microseconds(self):
+    def microseconds(self) -> float:
         return float(self._number * self.__calc_coef(self._from_unit, self.Unit.MICROSECOND))
 
     @property
-    def _text_units(self):
+    def _text_units(self) -> TextUnitsMap:
         return self._TEXT_UNITS
 
     @property
-    def _units(self):
-        return (
+    def _units(self) -> List[SupportsUnit]:
+        return [
             self.Unit.DAY,
             self.Unit.HOUR,
             self.Unit.MINUTE,
             self.Unit.SECOND,
             self.Unit.MILLISECOND,
             self.Unit.MICROSECOND,
-        )
+        ]
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.microseconds == other.microseconds
 
-    def __ne__(self, other):
+    def __ne__(self, other) -> bool:
         return self.microseconds != other.microseconds
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         return self.microseconds < other.microseconds
 
-    def __le__(self, other):
+    def __le__(self, other) -> bool:
         return self.microseconds <= other.microseconds
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
         return self.microseconds > other.microseconds
 
-    def __ge__(self, other):
+    def __ge__(self, other) -> bool:
         return self.microseconds >= other.microseconds
 
     def validate(self, min_value=None, max_value=None):
@@ -185,8 +185,8 @@ class Time(HumanReadableValue):
                     value=self,
                 )
 
-    def get_as(self, unit):
-        unit_maps = {
+    def get_as(self, unit: Union[str, SupportsUnit]) -> float:
+        unit_maps: Dict[SupportsUnit, str] = {
             self.Unit.DAY: "days",
             self.Unit.HOUR: "hours",
             self.Unit.MINUTE: "minutes",
@@ -199,15 +199,16 @@ class Time(HumanReadableValue):
 
         return getattr(self, unit_maps[norm_unit])
 
-    def _normalize_unit(self, unit):
+    def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
         if isinstance(unit, TimeUnit):
             return unit
 
         return super()._normalize_unit(unit)
 
-    def __calc_coef(self, from_unit, to_unit):
-        thousand_coef = Decimal(1000 ** (to_unit.thousand_factor - from_unit.thousand_factor))
-        sixty_coef = Decimal(60 ** (to_unit.sixty_factor - from_unit.sixty_factor))
-        day_coef = Decimal(24 ** (to_unit.day_factor - from_unit.day_factor))
+    def __calc_coef(self, from_unit: SupportsUnit, to_unit: TimeUnit) -> Decimal:
+        from_unit_tu = cast(TimeUnit, from_unit)
+        thousand_coef = Decimal(1000 ** (to_unit.thousand_factor - from_unit_tu.thousand_factor))
+        sixty_coef = Decimal(60 ** (to_unit.sixty_factor - from_unit_tu.sixty_factor))
+        day_coef = Decimal(24 ** (to_unit.day_factor - from_unit_tu.day_factor))
 
         return day_coef * sixty_coef * thousand_coef
