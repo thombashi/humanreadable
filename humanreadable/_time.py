@@ -166,7 +166,7 @@ class Time(HumanReadableValue):
             if self < min_value:
                 raise ParameterError(
                     "time value is too low",
-                    expected="greater than or equal to {}".format(min_value),
+                    expected=f"greater than or equal to {min_value}",
                     value=self,
                 )
 
@@ -177,7 +177,7 @@ class Time(HumanReadableValue):
             if self > max_value:
                 raise ParameterError(
                     "time value is too high",
-                    expected="less than or equal to {}".format(max_value),
+                    expected=f"less than or equal to {max_value}",
                     value=self,
                 )
 

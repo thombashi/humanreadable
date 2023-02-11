@@ -51,7 +51,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
             if u.regexp.search(unit):
                 return u
 
-        raise ValueError("unit not found: {}".format(unit))
+        raise ValueError(f"unit not found: {unit}")
 
     def __split_unit(self, readable_value):
         if RealNumber(readable_value).is_type():

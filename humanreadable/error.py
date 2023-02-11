@@ -30,10 +30,10 @@ class ParameterError(ValueError):
         extra_msg_list = []
 
         if self.__expected:
-            extra_msg_list.append("expected={}".format(self.__expected))
+            extra_msg_list.append(f"expected={self.__expected}")
 
         if self.__value:
-            extra_msg_list.append("value={}".format(self.__value))
+            extra_msg_list.append(f"value={self.__value}")
 
         return extra_msg_list
 
@@ -48,6 +48,6 @@ class UnitNotFoundError(ParameterError):
         extra_msg_list = []
 
         if self.__available_units:
-            extra_msg_list.append("available-units={}".format(self.__available_units))
+            extra_msg_list.append(f"available-units={self.__available_units}")
 
         return super()._get_extra_msgs() + extra_msg_list
