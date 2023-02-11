@@ -98,11 +98,11 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
 
         return (number, from_unit)
 
-    def __to_number(self, readable_num):
-        match = _RE_NUMBER.search(readable_num)
+    def __to_number(self, number_str):
+        match = _RE_NUMBER.search(number_str)
         if not match:
             raise ParameterError(
-                "human-readable value should only include a number", value=readable_num
+                "human-readable value should only include a number", value=number_str
             )
 
         return Decimal(match.group())
