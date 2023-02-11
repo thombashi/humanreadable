@@ -79,7 +79,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
                 continue
 
         raise UnitNotFoundError(
-            "unit not found", value=readable_value, available_units=_get_unit_msg(self._text_units),
+            "unit not found", value=readable_value, available_units=_get_unit_msg(self._text_units)
         )
 
     def __preprocess(self, readable_value):

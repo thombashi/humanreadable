@@ -10,14 +10,14 @@ import pytest
 from humanreadable import BitPerSecond, ParameterError, UnitNotFoundError
 
 
-KILO = Decimal(1000 ** 1)
-MEGA = Decimal(1000 ** 2)
-GIGA = Decimal(1000 ** 3)
-TERA = Decimal(1000 ** 4)
-KIBI = Decimal(1024 ** 1)
-MEBI = Decimal(1024 ** 2)
-GIBI = Decimal(1024 ** 3)
-TEBI = Decimal(1024 ** 4)
+KILO = Decimal(1000**1)
+MEGA = Decimal(1000**2)
+GIGA = Decimal(1000**3)
+TERA = Decimal(1000**4)
+KIBI = Decimal(1024**1)
+MEBI = Decimal(1024**2)
+GIBI = Decimal(1024**3)
+TEBI = Decimal(1024**4)
 
 
 class Test_BitPerSecond_constructor:
@@ -79,19 +79,19 @@ class Test_BitPerSecond_bps:
         [
             ["2bps", 2],
             ["2 bps", 2],
-            ["2kbps", 2 * 1000 ** 1],
-            ["2 Kbps", 2 * 1000 ** 1],
-            ["+1.25Kbps", 1.25 * 1000 ** 1],
-            ["2.5 Kibit/s", 2.5 * 1024 ** 1],
-            ["2Mbps", 2 * 1000 ** 2],
-            ["2 Mbps", 2 * 1000 ** 2],
-            ["2.5 Mibit/s", 2.5 * 1024 ** 2],
-            ["2Gbps", 2 * 1000 ** 3],
-            ["2 Gbps", 2 * 1000 ** 3],
-            ["2.5 Gibit/s", 2.5 * 1024 ** 3],
-            ["2Tbps", 2 * 1000 ** 4],
-            ["2 Tbps", 2 * 1000 ** 4],
-            ["2.5 Tibit/s", 2.5 * 1024 ** 4],
+            ["2kbps", 2 * 1000**1],
+            ["2 Kbps", 2 * 1000**1],
+            ["+1.25Kbps", 1.25 * 1000**1],
+            ["2.5 Kibit/s", 2.5 * 1024**1],
+            ["2Mbps", 2 * 1000**2],
+            ["2 Mbps", 2 * 1000**2],
+            ["2.5 Mibit/s", 2.5 * 1024**2],
+            ["2Gbps", 2 * 1000**3],
+            ["2 Gbps", 2 * 1000**3],
+            ["2.5 Gibit/s", 2.5 * 1024**3],
+            ["2Tbps", 2 * 1000**4],
+            ["2 Tbps", 2 * 1000**4],
+            ["2.5 Tibit/s", 2.5 * 1024**4],
         ],
     )
     def test_normal(self, value, expected):
@@ -104,11 +104,11 @@ class Test_BitPerSecond_kbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
-            ["2bps", 2 * 1000 ** -1],
-            ["2Kbps", 2 * 1000 ** 0],
-            ["2Mbps", 2 * 1000 ** 1],
-            ["2Gbps", 2 * 1000 ** 2],
-            ["2Tbps", 2 * 1000 ** 3],
+            ["2bps", 2 * 1000**-1],
+            ["2Kbps", 2 * 1000**0],
+            ["2Mbps", 2 * 1000**1],
+            ["2Gbps", 2 * 1000**2],
+            ["2Tbps", 2 * 1000**3],
             ["2Kibps", 2 * KIBI / KILO],
             ["2Mibps", 2 * MEBI / KILO],
             ["2Gibps", 2 * GIBI / KILO],
@@ -127,10 +127,10 @@ class Test_BitPerSecond_kbps:
             ["2Mbps", 2 * MEGA / KIBI],
             ["2Gbps", 2 * GIGA / KIBI],
             ["2Tbps", 2 * TERA / KIBI],
-            ["2Kibps", 2 * 1024 ** 0],
-            ["2Mibps", 2 * 1024 ** 1],
-            ["2Gibps", 2 * 1024 ** 2],
-            ["2Tibps", 2 * 1024 ** 3],
+            ["2Kibps", 2 * 1024**0],
+            ["2Mibps", 2 * 1024**1],
+            ["2Gibps", 2 * 1024**2],
+            ["2Tibps", 2 * 1024**3],
         ],
     )
     def test_normal_kibi(self, value, expected):
@@ -158,11 +158,11 @@ class Test_BitPerSecond_mbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
-            ["2bps", 2 * 1000 ** -2],
-            ["2Kbps", 2 * 1000 ** -1],
-            ["2Mbps", 2 * 1000 ** 0],
-            ["2Gbps", 2 * 1000 ** 1],
-            ["2Tbps", 2 * 1000 ** 2],
+            ["2bps", 2 * 1000**-2],
+            ["2Kbps", 2 * 1000**-1],
+            ["2Mbps", 2 * 1000**0],
+            ["2Gbps", 2 * 1000**1],
+            ["2Tbps", 2 * 1000**2],
             ["2Kibps", 2 * KIBI / MEGA],
             ["2Mibps", 2 * MEBI / MEGA],
             ["2Gibps", 2 * GIBI / MEGA],
@@ -181,10 +181,10 @@ class Test_BitPerSecond_mbps:
             ["2Mbps", 2 * MEGA / MEBI],
             ["2Gbps", 2 * GIGA / MEBI],
             ["2Tbps", 2 * TERA / MEBI],
-            ["2Kibps", 2 * 1024 ** -1],
-            ["2Mibps", 2 * 1024 ** 0],
-            ["2Gibps", 2 * 1024 ** 1],
-            ["2Tibps", 2 * 1024 ** 2],
+            ["2Kibps", 2 * 1024**-1],
+            ["2Mibps", 2 * 1024**0],
+            ["2Gibps", 2 * 1024**1],
+            ["2Tibps", 2 * 1024**2],
         ],
     )
     def test_normal_mebi(self, value, expected):
@@ -197,11 +197,11 @@ class Test_BitPerSecond_gbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
-            ["2bps", 2 * 1000 ** -3],
-            ["2Kbps", 2 * 1000 ** -2],
-            ["2Mbps", 2 * 1000 ** -1],
-            ["2Gbps", 2 * 1000 ** 0],
-            ["2Tbps", 2 * 1000 ** 1],
+            ["2bps", 2 * 1000**-3],
+            ["2Kbps", 2 * 1000**-2],
+            ["2Mbps", 2 * 1000**-1],
+            ["2Gbps", 2 * 1000**0],
+            ["2Tbps", 2 * 1000**1],
             ["2Kibps", 2 * KIBI / GIGA],
             ["2Mibps", 2 * MEBI / GIGA],
             ["2Gibps", 2 * GIBI / GIGA],
@@ -220,10 +220,10 @@ class Test_BitPerSecond_gbps:
             ["2Mbps", 2 * MEGA / GIBI],
             ["2Gbps", 2 * GIGA / GIBI],
             ["2Tbps", 2 * TERA / GIBI],
-            ["2Kibps", 2 * 1024 ** -2],
-            ["2Mibps", 2 * 1024 ** -1],
-            ["2Gibps", 2 * 1024 ** 0],
-            ["2Tibps", 2 * 1024 ** 1],
+            ["2Kibps", 2 * 1024**-2],
+            ["2Mibps", 2 * 1024**-1],
+            ["2Gibps", 2 * 1024**0],
+            ["2Tibps", 2 * 1024**1],
         ],
     )
     def test_normal_gibi(self, value, expected):
@@ -236,11 +236,11 @@ class Test_BitPerSecond_tbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
-            ["2bps", 2 * 1000 ** -4],
-            ["2Kbps", 2 * 1000 ** -3],
-            ["2Mbps", 2 * 1000 ** -2],
-            ["2Gbps", 2 * 1000 ** -1],
-            ["2Tbps", 2 * 1000 ** 0],
+            ["2bps", 2 * 1000**-4],
+            ["2Kbps", 2 * 1000**-3],
+            ["2Mbps", 2 * 1000**-2],
+            ["2Gbps", 2 * 1000**-1],
+            ["2Tbps", 2 * 1000**0],
             ["2Kibps", 2 * KIBI / TERA],
             ["2Mibps", 2 * MEBI / TERA],
             ["2Gibps", 2 * GIBI / TERA],
@@ -259,10 +259,10 @@ class Test_BitPerSecond_tbps:
             ["2Mbps", 2 * MEGA / TEBI],
             ["2Gbps", 2 * GIGA / TEBI],
             ["2Tbps", 2 * TERA / TEBI],
-            ["2Kibps", 2 * 1024 ** -3],
-            ["2Mibps", 2 * 1024 ** -2],
-            ["2Gibps", 2 * 1024 ** -1],
-            ["2Tibps", 2 * 1024 ** 0],
+            ["2Kibps", 2 * 1024**-3],
+            ["2Mibps", 2 * 1024**-2],
+            ["2Gibps", 2 * 1024**-1],
+            ["2Tibps", 2 * 1024**0],
         ],
     )
     def test_normal_gibi(self, value, expected):

@@ -260,6 +260,6 @@ class BitPerSecond(HumanReadableValue):
         if from_unit.kilo_size == to_unit.kilo_size:
             return Decimal(from_unit.kilo_size ** (from_unit.factor - to_unit.factor))
 
-        return Decimal(from_unit.kilo_size ** from_unit.factor) / Decimal(
-            to_unit.kilo_size ** to_unit.factor
+        return Decimal(from_unit.kilo_size**from_unit.factor) / Decimal(
+            to_unit.kilo_size**to_unit.factor
         )
