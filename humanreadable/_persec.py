@@ -3,10 +3,11 @@
 """
 
 import re
-from collections import OrderedDict, namedtuple
+from collections import OrderedDict
 from decimal import Decimal
+from typing import NamedTuple, Pattern
 
-from ._base import _BASE_ATTRS, HumanReadableValue
+from ._base import HumanReadableValue
 
 
 _PATTERN_TEMPLETE = r"\s?{}$"
@@ -22,7 +23,11 @@ _TBPS_STR_UNITS = ["[tT]bps", "[tT]bit/s"]
 _TIBPS_STR_UNITS = ["[tT]ibps", "[tT]ibit/s"]
 
 
-ByteUnit = namedtuple("ByteUnit", "{} kilo_size factor".format(" ".join(_BASE_ATTRS)))
+class ByteUnit(NamedTuple):
+    name: str
+    regexp: Pattern
+    kilo_size: int
+    factor: int
 
 
 class BitPerSecond(HumanReadableValue):

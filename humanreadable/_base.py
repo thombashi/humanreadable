@@ -11,7 +11,6 @@ from typepy import RealNumber, String
 from .error import ParameterError, UnitNotFoundError
 
 
-_BASE_ATTRS = ("name", "regexp")
 _RE_NUMBER = re.compile(r"^[-\+]?[0-9\.]+$")
 
 

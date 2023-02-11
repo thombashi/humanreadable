@@ -3,10 +3,11 @@
 """
 
 import re
-from collections import OrderedDict, namedtuple
+from collections import OrderedDict
 from decimal import Decimal
+from typing import NamedTuple, Pattern
 
-from ._base import _BASE_ATTRS, HumanReadableValue
+from ._base import HumanReadableValue
 from .error import ParameterError
 
 
@@ -20,9 +21,12 @@ _MSEC_STR_UNITS = ["ms", "msec", "msecs", "millisecond", "milliseconds"]
 _USEC_STR_UNITS = ["us", "usec", "usecs", "microsecond", "microseconds"]
 
 
-TimeUnit = namedtuple(
-    "TimeUnit", "{} thousand_factor sixty_factor day_factor".format(" ".join(_BASE_ATTRS))
-)
+class TimeUnit(NamedTuple):
+    name: str
+    regexp: Pattern
+    thousand_factor: int
+    sixty_factor: int
+    day_factor: int
 
 
 class Time(HumanReadableValue):
