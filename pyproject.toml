@@ -38,6 +38,9 @@ exclude_lines = [
     'abstractclassmethod',
     'warnings.warn',
 ]
+omit = [
+    'humanreadable/_typing.py',
+]
 
 [tool.isort]
 known_third_party = [
