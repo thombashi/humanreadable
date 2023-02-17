@@ -21,11 +21,11 @@ except ImportError:
 
 class SupportsUnit(Protocol):
     @property
-    def name(self) -> str:
+    def name(self) -> str:  # pragma: no cover
         ...
 
     @property
-    def regexp(self) -> Pattern:
+    def regexp(self) -> Pattern:  # pragma: no cover
         ...
 
 
