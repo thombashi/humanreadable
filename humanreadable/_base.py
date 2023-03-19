@@ -13,10 +13,10 @@ from .error import ParameterError, UnitNotFoundError
 
 
 try:
-    from typing import Protocol
+    from typing import Final, Protocol
 except ImportError:
-    # typing.Protocol is only available starting from Python 3.8.
-    from ._typing import Protocol  # type: ignore
+    # typing.Final and typing.Protocol are only available starting from Python 3.8.
+    from ._typing import Final, Protocol  # type: ignore
 
 
 class SupportsUnit(Protocol):
@@ -33,7 +33,7 @@ Units = List[str]
 TextUnitsMap = Dict[SupportsUnit, Units]
 
 
-_RE_NUMBER = re.compile(r"^[-\+]?[0-9\.]+$")
+_RE_NUMBER: Final[Pattern] = re.compile(r"^[-\+]?[0-9\.]+$")
 
 
 def _get_unit_msg(text_units: TextUnitsMap) -> str:
@@ -53,7 +53,9 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
     def get_as(self, unit: Union[str, SupportsUnit]) -> float:  # pragma: no cover
         pass
 
-    def __init__(self, readable_value: str, default_unit=None) -> None:
+    def __init__(
+        self, readable_value: str, default_unit: Union[str, SupportsUnit, None] = None
+    ) -> None:
         self._default_unit = self._normalize_unit(default_unit)
         self._number, self._from_unit = self.__preprocess(readable_value)
 
