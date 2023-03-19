@@ -44,7 +44,12 @@ class Test_BitPerSecond_constructor:
 
 
 class Test_BitPerSecond_repr:
-    @pytest.mark.parametrize(["value", "expected"], [["2 Kbps", "2 Kbps"]])
+    @pytest.mark.parametrize(
+        ["value", "expected"],
+        [
+            ["2 Kbps", "2 Kbps"],
+        ],
+    )
     def test_exception(self, value, expected):
         assert str(BitPerSecond(value)) == expected
 
@@ -52,7 +57,12 @@ class Test_BitPerSecond_repr:
 class Test_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
-        [["5 bps", "5.0 bit/s", True], ["60000bps", "60 Kbps", True], ["1 bps", "2 bps", False]],
+        [
+            ["5 bps", "5.0 bit/s", True],
+            ["5.0 bit/s", "5 bits/sec", True],
+            ["60000bps", "60 Kbps", True],
+            ["1 bps", "2 bps", False],
+        ],
     )
     def test_exception(self, lhs, rhs, expected):
         assert (BitPerSecond(lhs) == BitPerSecond(rhs)) is expected
@@ -61,7 +71,11 @@ class Test_eq:
 class Test_less_than:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
-        [["20 Gbps", "32Gbps", True], ["20 Gibps", "32Gbps", True], ["40 Gibps", "32Gbps", False]],
+        [
+            ["20 Gbps", "32Gbps", True],
+            ["20 Gibps", "32Gbps", True],
+            ["40 Gibps", "32Gbps", False],
+        ],
     )
     def test_exception(self, lhs, rhs, expected):
         lhs = BitPerSecond(lhs)

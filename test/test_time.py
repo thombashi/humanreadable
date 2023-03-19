@@ -28,7 +28,12 @@ class Test_constructor:
 
 
 class Test_repr:
-    @pytest.mark.parametrize(["value", "expected"], [["5seconds", "5 seconds"]])
+    @pytest.mark.parametrize(
+        ["value", "expected"],
+        [
+            ["5seconds", "5 seconds"],
+        ],
+    )
     def test_exception(self, value, expected):
         assert str(Time(value)) == expected
 
@@ -36,14 +41,25 @@ class Test_repr:
 class Test_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
-        [["5seconds", "5.0 sec", True], ["60000ms", "1min", True], ["1 sec", "2 sec", False]],
+        [
+            ["5seconds", "5.0 sec", True],
+            ["60000ms", "1min", True],
+            ["1 sec", "2 sec", False],
+        ],
     )
     def test_exception(self, lhs, rhs, expected):
         assert (Time(lhs) == Time(rhs)) is expected
 
 
 class Test_Time_days:
-    @pytest.mark.parametrize(["value", "expected"], [["12hours", 0.5], ["1day", 1], ["3 days", 3]])
+    @pytest.mark.parametrize(
+        ["value", "expected"],
+        [
+            ["12hours", 0.5],
+            ["1day", 1],
+            ["3 days", 3],
+        ],
+    )
     def test_normal(self, value, expected):
         assert Time(value).days == expected
 
@@ -51,7 +67,13 @@ class Test_Time_days:
 class Test_Time_hours:
     @pytest.mark.parametrize(
         ["value", "expected"],
-        [["3600 seconds", 1], ["30minutes", 0.5], ["2hours", 2], ["1day", 24], ["3 days", 72]],
+        [
+            ["3600 seconds", 1],
+            ["30minutes", 0.5],
+            ["2hours", 2],
+            ["1day", 24],
+            ["3 days", 72],
+        ],
     )
     def test_normal(self, value, expected):
         assert Time(value).hours == expected
@@ -59,7 +81,13 @@ class Test_Time_hours:
 
 class Test_Time_minutes:
     @pytest.mark.parametrize(
-        ["value", "expected"], [["30 seconds", 0.5], ["60000ms", 1], ["1m", 1], ["2hour", 120]]
+        ["value", "expected"],
+        [
+            ["30 seconds", 0.5],
+            ["60000ms", 1],
+            ["1m", 1],
+            ["2hour", 120],
+        ],
     )
     def test_normal(self, value, expected):
         assert Time(value).minutes == expected
