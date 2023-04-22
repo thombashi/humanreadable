@@ -37,8 +37,8 @@ Supported Unites
 Usage
 ============================================
 
-Basic usages
--------------------------------------------
+Convert a human-readable value to another unit
+----------------------------------------------
 :Sample Code:
     .. code-block:: python
 
@@ -49,11 +49,14 @@ Basic usages
         print("'{}' to msecs -> {}".format(value, hr.Time(value).milliseconds))
         print("'{}' to minutes -> {}".format(value, hr.Time(value).minutes))
 
-        print("\n[Examples: humanreadable.BitPerSecond]")
+        value = "12 min 40 sec"
+        print("'{}' to seconds -> {}".format(value, hr.Time(value).seconds))
+
+        print("\n[Examples: humanreadable.BitsPerSecond]")
         value = "1 Gbps"
-        print("'{}' to Mbps -> {}".format(value, hr.BitPerSecond(value).mega_bps))
-        print("'{}' to Kbps -> {}".format(value, hr.BitPerSecond(value).kilo_bps))
-        print("'{}' to Kibps -> {}".format(value, hr.BitPerSecond(value).kibi_bps))
+        print("'{}' to Mbps -> {}".format(value, hr.BitsPerSecond(value).mega_bps))
+        print("'{}' to Kbps -> {}".format(value, hr.BitsPerSecond(value).kilo_bps))
+        print("'{}' to Kibps -> {}".format(value, hr.BitsPerSecond(value).kibi_bps))
 
 :Output:
     .. code-block::
@@ -61,12 +64,27 @@ Basic usages
         [Examples: humanreadable.Time]
         '120 sec' to msecs -> 120000.0
         '120 sec' to minutes -> 2.0
+        '12 minutes 40 seconds' to seconds -> 760.0
 
-        [Examples: humanreadable.BitPerSecond]
+        [Examples: humanreadable.BitsPerSecond]
         '1 Gbps' to Mbps -> 1000.0
         '1 Gbps' to Kbps -> 1000000.0
-        '1 Gbps' to Kibps -> 953674.31640625
+        '1 Gbps' to Kibps -> 976562.5
 
+
+Convert a value to a human readable string
+----------------------------------------------
+:Sample Code:
+    .. code-block:: python
+
+        import humanreadable as hr
+
+        hr.Time("400", default_unit=hr.Time.Unit.SECOND).to_humanreadable()
+
+:Output:
+    .. code-block::
+
+        6 minutes 40 seconds
 
 Set default unit
 -------------------------------------------
@@ -106,29 +124,29 @@ Units
     |microseconds|``us``/``usec``/``usecs``/``microsecond``/``microseconds``|
     +------------+----------------------------------------------------------+
 
-.. table:: Available units for ``humanreadable.BitPerSecond``
+.. table:: Available units for ``humanreadable.BitsPerSecond``
 
-    +-----+---------------------------+
-    |Unit |Available specifiers (str) |
-    +=====+===========================+
-    |bps  |``bps``/``bit/s``          |
-    +-----+---------------------------+
-    |Kbps |``[kK]bps``/``[kK]bit/s``  |
-    +-----+---------------------------+
-    |Kibps|``[kK]ibps``/``[kK]ibit/s``|
-    +-----+---------------------------+
-    |Mbps |``[mM]bps``/``[mM]bit/s``  |
-    +-----+---------------------------+
-    |Mibps|``[mM]ibps``/``[mM]ibit/s``|
-    +-----+---------------------------+
-    |Gbps |``[gG]bps``/``[gG]bit/s``  |
-    +-----+---------------------------+
-    |Gibps|``[gG]ibps``/``[gG]ibit/s``|
-    +-----+---------------------------+
-    |Tbps |``[tT]bps``/``[tT]bit/s``  |
-    +-----+---------------------------+
-    |Tibps|``[tT]ibps``/``[tT]ibit/s``|
-    +-----+---------------------------+
+    +-----+-----------------------------+
+    |Unit |Available specifiers (str)   |
+    +=====+=============================+
+    |bps  |``bps``/``bits?/s``          |
+    +-----+-----------------------------+
+    |Kbps |``[kK]bps``/``[kK]bits?/s``  |
+    +-----+-----------------------------+
+    |Kibps|``[kK]ibps``/``[kK]ibits?/s``|
+    +-----+-----------------------------+
+    |Mbps |``[mM]bps``/``[mM]bits?/s``  |
+    +-----+-----------------------------+
+    |Mibps|``[mM]ibps``/``[mM]ibits?/s``|
+    +-----+-----------------------------+
+    |Gbps |``[gG]bps``/``[gG]bits?/s``  |
+    +-----+-----------------------------+
+    |Gibps|``[gG]ibps``/``[gG]ibits?/s``|
+    +-----+-----------------------------+
+    |Tbps |``[tT]bps``/``[tT]bits?/s``  |
+    +-----+-----------------------------+
+    |Tibps|``[tT]ibps``/``[tT]ibits?/s``|
+    +-----+-----------------------------+
 
 
 Installation
@@ -150,5 +168,5 @@ Installation: apt (for Ubuntu)
 
 Dependencies
 ============================================
-- Python 3.7+
+- Python 3.6+
 - `Python package dependencies (automatically installed) <https://github.com/thombashi/humanreadable/network/dependencies>`__
