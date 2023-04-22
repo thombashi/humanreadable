@@ -59,7 +59,7 @@ skip_glob = [
 
 [tool.mypy]
 ignore_missing_imports = true
-python_version = 3.6
+python_version = 3.8
 
 pretty = true
 show_error_codes = true
