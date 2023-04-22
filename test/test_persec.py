@@ -285,7 +285,7 @@ class Test_BitPerSecond_tbps:
         assert value.tebi_byte_per_sec == value.tebi_bps / 8
 
 
-class Test_Time_get_as:
+class Test_BitPerSecond_get_as:
     @pytest.mark.parametrize(
         ["value", "default_unit", "expected"],
         [
