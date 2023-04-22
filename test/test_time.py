@@ -7,7 +7,7 @@ import pytest
 from humanreadable import ParameterError, Time
 
 
-class Test_constructor:
+class Test_Time_constructor:
     @pytest.mark.parametrize(
         ["value", "exception"],
         [
@@ -27,7 +27,7 @@ class Test_constructor:
             Time(value)
 
 
-class Test_repr:
+class Test_Time_repr:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -38,7 +38,7 @@ class Test_repr:
         assert str(Time(value)) == expected
 
 
-class Test_eq:
+class Test_Time_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [

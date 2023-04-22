@@ -54,7 +54,7 @@ class Test_BitPerSecond_repr:
         assert str(BitPerSecond(value)) == expected
 
 
-class Test_eq:
+class Test_BitPerSecond_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [
@@ -68,7 +68,7 @@ class Test_eq:
         assert (BitPerSecond(lhs) == BitPerSecond(rhs)) is expected
 
 
-class Test_less_than:
+class Test_BitPerSecond_less_than:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [
