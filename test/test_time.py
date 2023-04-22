@@ -116,6 +116,11 @@ class Test_Time_seconds:
             ["123000000 usecs", 123],
             ["1m", 60],
             ["2hour", 7200],
+            ["12m40s", 760],
+            ["12m 40s", 760],
+            ["12min 40sec", 760],
+            ["12 minutes 40 seconds", 760],
+            ["1 hour 12 minutes 40 seconds", 4360],
         ],
     )
     def test_normal(self, value, expected):

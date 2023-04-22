@@ -144,6 +144,21 @@ class Time(HumanReadableValue):
             self.Unit.MICROSECOND,
         ]
 
+    def __init__(
+        self, readable_value: str, default_unit: Union[str, SupportsUnit, None] = None
+    ) -> None:
+        values = re.findall(r"\d+\s*[a-zA-Z]+", readable_value)
+        if len(values) <= 1:
+            super().__init__(readable_value, default_unit)
+            return
+
+        t = _parse(readable_value, default_unit)
+        self._default_unit = t._default_unit
+        self._number = t._number
+        self._from_unit = t._from_unit
+
+        assert self._default_unit
+
     def __eq__(self, other) -> bool:
         return self.microseconds == other.microseconds
 
@@ -252,3 +267,21 @@ class Time(HumanReadableValue):
         day_coef = Decimal(24 ** (to_unit.day_factor - from_unit_tu.day_factor))
 
         return day_coef * sixty_coef * thousand_coef
+
+
+def _parse(value: Union[str, Time], default_unit: Union[str, SupportsUnit, None] = None) -> Time:
+    if isinstance(value, Time):
+        return value
+
+    sum: Optional[Time] = None
+
+    for item in reversed(re.findall(r"\d+\s*[a-zA-Z]+", value)):
+        t = Time(item, default_unit=default_unit)
+        if sum is None:
+            sum = t
+        else:
+            sum += t
+
+    assert sum is not None
+
+    return sum
