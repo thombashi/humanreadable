@@ -275,3 +275,6 @@ class BitPerSecond(HumanReadableValue):
         return Decimal(from_unit_bu.kilo_size**from_unit_bu.factor) / Decimal(
             to_unit.kilo_size**to_unit.factor
         )
+
+
+BitsPerSecond = BitPerSecond

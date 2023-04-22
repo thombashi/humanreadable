@@ -7,7 +7,7 @@ from decimal import Decimal
 
 import pytest
 
-from humanreadable import BitPerSecond, ParameterError, UnitNotFoundError
+from humanreadable import BitPerSecond, BitsPerSecond, ParameterError, UnitNotFoundError
 
 
 KILO = Decimal(1000**1)
@@ -66,6 +66,7 @@ class Test_BitPerSecond_eq:
     )
     def test_exception(self, lhs, rhs, expected):
         assert (BitPerSecond(lhs) == BitPerSecond(rhs)) is expected
+        assert (BitPerSecond(lhs) == BitsPerSecond(rhs)) is expected
 
 
 class Test_BitPerSecond_add:
