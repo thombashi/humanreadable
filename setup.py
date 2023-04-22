@@ -41,7 +41,7 @@ setuptools.setup(
     author=pkg_info["__author__"],
     author_email=pkg_info["__email__"],
     description=(
-        "humanreadable is a Python library to convert from human-readable values to Python values."
+        "humanreadable is a Python library to convert human-readable values to other units."
     ),
     include_package_data=True,
     keywords=["human-readable", "converter"],
