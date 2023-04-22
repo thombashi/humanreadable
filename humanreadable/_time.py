@@ -203,6 +203,42 @@ class Time(HumanReadableValue):
 
         return getattr(self, unit_maps[norm_unit])
 
+    def to_humanreadable(self, style: str = "full") -> str:
+        def _to_unit_str(unit, style: str) -> str:
+            if style in ("short", "abbr"):
+                return unit.name[0]
+
+            if style == "full":
+                return f" {unit.name}"
+
+            return unit.name
+
+        style = style.strip().lower()
+        items = []
+
+        if self.days >= 1:
+            items.append(f"{self.days:d}{_to_unit_str(self.Unit.DAY, style)}")
+        if self.hours % 24 >= 1:
+            items.append(f"{int(self.hours) % 24:d}{_to_unit_str(self.Unit.HOUR, style)}")
+        if self.minutes % 60 >= 1:
+            items.append(f"{int(self.minutes) % 60:d}{_to_unit_str(self.Unit.MINUTE, style)}")
+        if self.seconds % 60 >= 1:
+            items.append(f"{int(self.seconds) % 60:d}{_to_unit_str(self.Unit.SECOND, style)}")
+        if self.milliseconds % 1000 >= 1:
+            items.append(
+                f"{int(self.milliseconds) % 1000:d}{_to_unit_str(self.Unit.MILLISECOND, style)}"
+            )
+        if self.microseconds % 1000 >= 1:
+            items.append(
+                f"{int(self.microseconds) % 1000:d}{_to_unit_str(self.Unit.MICROSECOND, style)}"
+            )
+
+        if not items:
+            assert self._default_unit
+            return f"0 {self._default_unit.name}"
+
+        return " ".join(items)
+
     def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
         if isinstance(unit, TimeUnit):
             return unit
