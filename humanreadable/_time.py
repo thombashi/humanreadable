@@ -162,6 +162,10 @@ class Time(HumanReadableValue):
     def __ge__(self, other) -> bool:
         return self.microseconds >= other.microseconds
 
+    def __add__(self, other: "Time") -> "Time":
+        number = self._number + Decimal(other.get_as(self._from_unit))
+        return Time(str(number), default_unit=self._from_unit)
+
     def validate(self, min_value=None, max_value=None):
         if min_value is not None:
             if not isinstance(min_value, Time):

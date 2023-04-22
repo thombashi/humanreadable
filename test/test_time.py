@@ -51,6 +51,18 @@ class Test_Time_eq:
         assert (Time(lhs) == Time(rhs)) is expected
 
 
+class Test_Time_add:
+    @pytest.mark.parametrize(
+        ["lhs", "rhs", "expected"],
+        [
+            ["1s", "1seconds", "2 sec"],
+            ["1s", "1000ms", "2 sec"],
+        ],
+    )
+    def test_exception(self, lhs, rhs, expected):
+        assert (Time(lhs) + Time(rhs)) == Time(expected)
+
+
 class Test_Time_days:
     @pytest.mark.parametrize(
         ["value", "expected"],
