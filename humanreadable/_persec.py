@@ -11,16 +11,17 @@ from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap
 
 
 _PATTERN_TEMPLETE = r"\s?{}$"
+_BPS_PATTERN = r"bits?(/|\s?per\s?)(s|sec|second)"
 
-_BPS_STR_UNITS = ["bps", "bit/s"]
-_KBPS_STR_UNITS = ["[kK]bps", "[kK]bit/s"]
-_KIBPS_STR_UNITS = ["[kK]ibps", "[kK]ibit/s"]
-_MBPS_STR_UNITS = ["[mM]bps", "[mM]bit/s"]
-_MIBPS_STR_UNITS = ["[mM]ibps", "[mM]ibit/s"]
-_GBPS_STR_UNITS = ["[gG]bps", "[gG]bit/s"]
-_GIBPS_STR_UNITS = ["[gG]ibps", "[gG]ibit/s"]
-_TBPS_STR_UNITS = ["[tT]bps", "[tT]bit/s"]
-_TIBPS_STR_UNITS = ["[tT]ibps", "[tT]ibit/s"]
+_BPS_STR_UNITS = ["bps", _BPS_PATTERN]
+_KBPS_STR_UNITS = ["[kK]bps", "[kK]" + _BPS_PATTERN]
+_KIBPS_STR_UNITS = ["[kK]ibps", "[kK]i" + _BPS_PATTERN]
+_MBPS_STR_UNITS = ["[mM]bps", "[mM]" + _BPS_PATTERN]
+_MIBPS_STR_UNITS = ["[mM]ibps", "[mM]i" + _BPS_PATTERN]
+_GBPS_STR_UNITS = ["[gG]bps", "[gG]" + _BPS_PATTERN]
+_GIBPS_STR_UNITS = ["[gG]ibps", "[gG]i" + _BPS_PATTERN]
+_TBPS_STR_UNITS = ["[tT]bps", "[tT]" + _BPS_PATTERN]
+_TIBPS_STR_UNITS = ["[tT]ibps", "[tT]i" + _BPS_PATTERN]
 
 
 class ByteUnit(NamedTuple):
