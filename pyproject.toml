@@ -63,10 +63,14 @@ ignore_missing_imports = true
 python_version = 3.8
 
 pretty = true
+
+no_implicit_optional = true
 show_error_codes = true
 show_error_context = true
+warn_redundant_casts = true
 warn_unreachable = true
 warn_unused_configs = true
+warn_unused_ignores = true
 
 [tool.pytest.ini_options]
 md_report = true
