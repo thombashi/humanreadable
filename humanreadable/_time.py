@@ -30,6 +30,7 @@ class TimeUnit(NamedTuple):
 
 
 class Time(HumanReadableValue):
+    @dataclass(frozen=True)
     class Unit:
         DAY = TimeUnit(
             name="days",

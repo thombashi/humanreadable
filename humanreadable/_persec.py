@@ -40,6 +40,7 @@ class BitPerSecond(HumanReadableValue):
             Human readable size (bit per second). e.g. 256 Mbps
     """
 
+    @dataclass(frozen=True)
     class Unit:
         BPS = ByteUnit(
             name="bps",
