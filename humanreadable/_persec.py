@@ -35,7 +35,7 @@ _TIBPS_STR_UNITS: Final[Units] = ("[tT]ibps", "[tT]i" + _BPS_PATTERN)
 class ByteUnit(NamedTuple):
     name: str
     regexp: Pattern[str]
-    kilo_size: int
+    k_size: int
     factor: int
 
 
@@ -53,55 +53,55 @@ class BitPerSecond(HumanReadableValue):
         BPS = ByteUnit(
             name="bps",
             regexp=compile_units_regex_pattern(_BPS_STR_UNITS),
-            kilo_size=1000,
+            k_size=1000,
             factor=0,
         )
         KBPS = ByteUnit(
             name="Kbps",
             regexp=compile_units_regex_pattern(_KBPS_STR_UNITS),
-            kilo_size=1000,
+            k_size=1000,
             factor=1,
         )
         KIBPS = ByteUnit(
             name="Kibps",
             regexp=compile_units_regex_pattern(_KIBPS_STR_UNITS),
-            kilo_size=1024,
+            k_size=1024,
             factor=1,
         )
         MBPS = ByteUnit(
             name="Mbps",
             regexp=compile_units_regex_pattern(_MBPS_STR_UNITS),
-            kilo_size=1000,
+            k_size=1000,
             factor=2,
         )
         MIBPS = ByteUnit(
             name="Mibps",
             regexp=compile_units_regex_pattern(_MIBPS_STR_UNITS),
-            kilo_size=1024,
+            k_size=1024,
             factor=2,
         )
         GBPS = ByteUnit(
             name="Gbps",
             regexp=compile_units_regex_pattern(_GBPS_STR_UNITS),
-            kilo_size=1000,
+            k_size=1000,
             factor=3,
         )
         GIBPS = ByteUnit(
             name="Gibps",
             regexp=compile_units_regex_pattern(_GIBPS_STR_UNITS),
-            kilo_size=1024,
+            k_size=1024,
             factor=3,
         )
         TBPS = ByteUnit(
             name="Tbps",
             regexp=compile_units_regex_pattern(_TBPS_STR_UNITS),
-            kilo_size=1000,
+            k_size=1000,
             factor=4,
         )
         TIBPS = ByteUnit(
             name="Tibps",
             regexp=compile_units_regex_pattern(_TIBPS_STR_UNITS),
-            kilo_size=1024,
+            k_size=1024,
             factor=4,
         )
 
@@ -260,11 +260,11 @@ class BitPerSecond(HumanReadableValue):
 
     def __calc_coef(self, from_unit: SupportsUnit, to_unit: ByteUnit) -> Decimal:
         from_unit_bu = cast(ByteUnit, from_unit)
-        if from_unit_bu.kilo_size == to_unit.kilo_size:
-            return Decimal(from_unit_bu.kilo_size ** (from_unit_bu.factor - to_unit.factor))
+        if from_unit_bu.k_size == to_unit.k_size:
+            return Decimal(from_unit_bu.k_size ** (from_unit_bu.factor - to_unit.factor))
 
-        return Decimal(from_unit_bu.kilo_size**from_unit_bu.factor) / Decimal(
-            to_unit.kilo_size**to_unit.factor
+        return Decimal(from_unit_bu.k_size**from_unit_bu.factor) / Decimal(
+            to_unit.k_size**to_unit.factor
         )
 
 
