@@ -5,32 +5,19 @@
 import abc
 import re
 from decimal import Decimal
-from typing import Dict, List, Optional, Pattern, Tuple, Union, cast
+from typing import List, Optional, Pattern, Tuple, Union, cast
 
 from typepy import RealNumber, String
 
+from ._types import SupportsUnit, TextUnitsMap
 from .error import ParameterError, UnitNotFoundError
 
 
 try:
-    from typing import Final, Protocol
+    from typing import Final
 except ImportError:
     # typing.Final and typing.Protocol are only available starting from Python 3.8.
-    from ._typing import Final, Protocol  # type: ignore
-
-
-class SupportsUnit(Protocol):
-    @property
-    def name(self) -> str:  # pragma: no cover
-        ...
-
-    @property
-    def regexp(self) -> Pattern:  # pragma: no cover
-        ...
-
-
-Units = Tuple[str, ...]
-TextUnitsMap = Dict[SupportsUnit, Units]
+    from ._typing import Final  # type: ignore
 
 
 _RE_NUMBER: Final[Pattern] = re.compile(r"^[-\+]?[0-9\.]+$")

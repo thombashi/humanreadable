@@ -8,7 +8,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
-from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap, Units
+from ._base import HumanReadableValue
+from ._types import SupportsUnit, TextUnitsMap, Units
 
 
 try:
