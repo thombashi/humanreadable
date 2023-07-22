@@ -15,8 +15,8 @@ humanreadable is a Python library to convert human-readable values to other unit
    :target: https://pypi.org/project/humanreadable
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/pypi/implementation/pathvalidate.svg
-    :target: https://pypi.org/project/pathvalidate
+.. image:: https://img.shields.io/pypi/implementation/humanreadable.svg
+    :target: https://pypi.org/project/humanreadable
     :alt: Supported Python implementations
 
 .. image:: https://github.com/thombashi/humanreadable/actions/workflows/lint_and_test.yml/badge.svg
@@ -46,17 +46,17 @@ Convert a human-readable value to another unit
 
         print("\n[Examples: humanreadable.Time]")
         value = "120 sec"
-        print("'{}' to msecs -> {}".format(value, hr.Time(value).milliseconds))
-        print("'{}' to minutes -> {}".format(value, hr.Time(value).minutes))
+        print(f"'{value}' to msecs -> {hr.Time(value).milliseconds}")
+        print(f"'{value}' to minutes -> {hr.Time(value).minutes}")
 
         value = "12 min 40 sec"
-        print("'{}' to seconds -> {}".format(value, hr.Time(value).seconds))
+        print(f"'{value}' to seconds -> {hr.Time(value).seconds}")
 
         print("\n[Examples: humanreadable.BitsPerSecond]")
         value = "1 Gbps"
-        print("'{}' to Mbps -> {}".format(value, hr.BitsPerSecond(value).mega_bps))
-        print("'{}' to Kbps -> {}".format(value, hr.BitsPerSecond(value).kilo_bps))
-        print("'{}' to Kibps -> {}".format(value, hr.BitsPerSecond(value).kibi_bps))
+        print(f"'{value}' to Mbps -> {hr.BitsPerSecond(value).mega_bps}")
+        print(f"'{value}' to Kbps -> {hr.BitsPerSecond(value).kilo_bps}")
+        print(f"'{value}' to Kibps -> {hr.BitsPerSecond(value).kibi_bps}")
 
 :Output:
     .. code-block::
@@ -79,12 +79,15 @@ Convert a value to a human readable string
 
         import humanreadable as hr
 
-        hr.Time("400", default_unit=hr.Time.Unit.SECOND).to_humanreadable()
+        t = hr.Time("400", default_unit=hr.Time.Unit.SECOND)
+        print(t.to_humanreadable())
+        print(t.to_humanreadable(style="short"))
 
 :Output:
     .. code-block::
 
         6 minutes 40 seconds
+        6m 40s
 
 Set default unit
 -------------------------------------------
@@ -108,45 +111,45 @@ Units
 -------------------------------------------
 .. table:: Available units for ``humanreadable.Time``
 
-    +------------+----------------------------------------------------------+
-    |    Unit    |                Available specifiers (str)                |
-    +============+==========================================================+
-    |days        |``d``/``day``/``days``                                    |
-    +------------+----------------------------------------------------------+
-    |hours       |``h``/``hour``/``hours``                                  |
-    +------------+----------------------------------------------------------+
-    |minutes     |``m``/``min``/``mins``/``minute``/``minutes``             |
-    +------------+----------------------------------------------------------+
-    |seconds     |``s``/``sec``/``secs``/``second``/``seconds``             |
-    +------------+----------------------------------------------------------+
-    |milliseconds|``ms``/``msec``/``msecs``/``millisecond``/``milliseconds``|
-    +------------+----------------------------------------------------------+
-    |microseconds|``us``/``usec``/``usecs``/``microsecond``/``microseconds``|
-    +------------+----------------------------------------------------------+
+    +--------------+------------------------------------------------------------+
+    |     Unit     |              Available unit specifiers (str)               |
+    +==============+============================================================+
+    | days         | ``d``/``day``/``days``                                     |
+    +--------------+------------------------------------------------------------+
+    | hours        | ``h``/``hour``/``hours``                                   |
+    +--------------+------------------------------------------------------------+
+    | minutes      | ``m``/``min``/``mins``/``minute``/``minutes``              |
+    +--------------+------------------------------------------------------------+
+    | seconds      | ``s``/``sec``/``secs``/``second``/``seconds``              |
+    +--------------+------------------------------------------------------------+
+    | milliseconds | ``ms``/``msec``/``msecs``/``millisecond``/``milliseconds`` |
+    +--------------+------------------------------------------------------------+
+    | microseconds | ``us``/``usec``/``usecs``/``microsecond``/``microseconds`` |
+    +--------------+------------------------------------------------------------+
 
 .. table:: Available units for ``humanreadable.BitsPerSecond``
 
-    +-----+-----------------------------+
-    |Unit |Available specifiers (str)   |
-    +=====+=============================+
-    |bps  |``bps``/``bits?/s``          |
-    +-----+-----------------------------+
-    |Kbps |``[kK]bps``/``[kK]bits?/s``  |
-    +-----+-----------------------------+
-    |Kibps|``[kK]ibps``/``[kK]ibits?/s``|
-    +-----+-----------------------------+
-    |Mbps |``[mM]bps``/``[mM]bits?/s``  |
-    +-----+-----------------------------+
-    |Mibps|``[mM]ibps``/``[mM]ibits?/s``|
-    +-----+-----------------------------+
-    |Gbps |``[gG]bps``/``[gG]bits?/s``  |
-    +-----+-----------------------------+
-    |Gibps|``[gG]ibps``/``[gG]ibits?/s``|
-    +-----+-----------------------------+
-    |Tbps |``[tT]bps``/``[tT]bits?/s``  |
-    +-----+-----------------------------+
-    |Tibps|``[tT]ibps``/``[tT]ibits?/s``|
-    +-----+-----------------------------+
+    +-------+--------------------------------------------------------+
+    | Unit  |            Available unit specifiers (str)             |
+    +=======+========================================================+
+    | Kbps  | ``[kK]bps``/``[kK]bits?(/|\s?per\s?)(s|sec|second)``   |
+    +-------+--------------------------------------------------------+
+    | Kibps | ``[kK]ibps``/``[kK]ibits?(/|\s?per\s?)(s|sec|second)`` |
+    +-------+--------------------------------------------------------+
+    | Mbps  | ``[mM]bps``/``[mM]bits?(/|\s?per\s?)(s|sec|second)``   |
+    +-------+--------------------------------------------------------+
+    | Mibps | ``[mM]ibps``/``[mM]ibits?(/|\s?per\s?)(s|sec|second)`` |
+    +-------+--------------------------------------------------------+
+    | Gbps  | ``[gG]bps``/``[gG]bits?(/|\s?per\s?)(s|sec|second)``   |
+    +-------+--------------------------------------------------------+
+    | Gibps | ``[gG]ibps``/``[gG]ibits?(/|\s?per\s?)(s|sec|second)`` |
+    +-------+--------------------------------------------------------+
+    | Tbps  | ``[tT]bps``/``[tT]bits?(/|\s?per\s?)(s|sec|second)``   |
+    +-------+--------------------------------------------------------+
+    | Tibps | ``[tT]ibps``/``[tT]ibits?(/|\s?per\s?)(s|sec|second)`` |
+    +-------+--------------------------------------------------------+
+    | bps   | ``bps``/``bits?(/|\s?per\s?)(s|sec|second)``           |
+    +-------+--------------------------------------------------------+
 
 
 Installation
@@ -168,5 +171,5 @@ Installation: apt (for Ubuntu)
 
 Dependencies
 ============================================
-- Python 3.6+
+- Python 3.7+
 - `Python package dependencies (automatically installed) <https://github.com/thombashi/humanreadable/network/dependencies>`__
