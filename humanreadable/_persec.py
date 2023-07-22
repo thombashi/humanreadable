@@ -9,7 +9,7 @@ from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
-from ._types import SupportsUnit, TextUnitsMap, Units
+from ._types import HumanReadableStyle, SupportsUnit, TextUnitsMap, Units
 
 
 try:
@@ -37,6 +37,7 @@ class ByteUnit(NamedTuple):
     regexp: Pattern[str]
     k_size: int
     factor: int
+    full_unit_expr: str
 
 
 class BitPerSecond(HumanReadableValue):
@@ -55,54 +56,63 @@ class BitPerSecond(HumanReadableValue):
             regexp=compile_units_regex_pattern(_BPS_STR_UNITS),
             k_size=1000,
             factor=0,
+            full_unit_expr="bits per second",
         )
         KBPS = ByteUnit(
             name="Kbps",
             regexp=compile_units_regex_pattern(_KBPS_STR_UNITS),
             k_size=1000,
             factor=1,
+            full_unit_expr="kilobits per second",
         )
         KIBPS = ByteUnit(
             name="Kibps",
             regexp=compile_units_regex_pattern(_KIBPS_STR_UNITS),
             k_size=1024,
             factor=1,
+            full_unit_expr="kibibits per second",
         )
         MBPS = ByteUnit(
             name="Mbps",
             regexp=compile_units_regex_pattern(_MBPS_STR_UNITS),
             k_size=1000,
             factor=2,
+            full_unit_expr="megabits per second",
         )
         MIBPS = ByteUnit(
             name="Mibps",
             regexp=compile_units_regex_pattern(_MIBPS_STR_UNITS),
             k_size=1024,
             factor=2,
+            full_unit_expr="mebibits per second",
         )
         GBPS = ByteUnit(
             name="Gbps",
             regexp=compile_units_regex_pattern(_GBPS_STR_UNITS),
             k_size=1000,
             factor=3,
+            full_unit_expr="gigabits per second",
         )
         GIBPS = ByteUnit(
             name="Gibps",
             regexp=compile_units_regex_pattern(_GIBPS_STR_UNITS),
             k_size=1024,
             factor=3,
+            full_unit_expr="gibibits per second",
         )
         TBPS = ByteUnit(
             name="Tbps",
             regexp=compile_units_regex_pattern(_TBPS_STR_UNITS),
             k_size=1000,
             factor=4,
+            full_unit_expr="terabits per second",
         )
         TIBPS = ByteUnit(
             name="Tibps",
             regexp=compile_units_regex_pattern(_TIBPS_STR_UNITS),
             k_size=1024,
             factor=4,
+            full_unit_expr="tebibits per second",
         )
 
     _TEXT_UNITS: Final[TextUnitsMap] = OrderedDict(
@@ -266,6 +276,29 @@ class BitPerSecond(HumanReadableValue):
         return Decimal(from_unit_bu.k_size**from_unit_bu.factor) / Decimal(
             to_unit.k_size**to_unit.factor
         )
+
+    def __filter_units_by_k(
+        self, units: List[SupportsUnit], from_unit: SupportsUnit
+    ) -> List[SupportsUnit]:
+        from_unit_bu = cast(ByteUnit, from_unit)
+        return [u for u in units if cast(ByteUnit, u).k_size == from_unit_bu.k_size]
+
+    def to_humanreadable(self, style: HumanReadableStyle = "full") -> str:
+        def _to_unit_str(unit, style: str) -> str:
+            if style == "full":
+                return f" {unit.full_unit_expr}"
+
+            return f" {unit.name}"
+
+        filtered_units = self.__filter_units_by_k(self._units, self._from_unit)
+        for unit in reversed(sorted(filtered_units, key=lambda u: cast(ByteUnit, u).factor)):
+            number = self.get_as(unit)
+            if number < 1:
+                continue
+
+            return f"{number:.1f}{_to_unit_str(unit, style)}"
+
+        raise ValueError("unit not found")
 
 
 BitsPerSecond = BitPerSecond

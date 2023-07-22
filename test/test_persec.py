@@ -319,3 +319,18 @@ class Test_BitPerSecond_get_as:
         print(bps, file=sys.stderr)
 
         assert bps.get_as(default_unit) == expected
+
+
+class Test_BitsPerSecond_to_humanreadable:
+    @pytest.mark.parametrize(
+        ["value", "style", "expected"],
+        [
+            ["1bps", "full", "1.0 bits per second"],
+            ["100Mbps", "full", "100.0 megabits per second"],
+            ["123456 Mbps", "full", "123.5 gigabits per second"],
+            ["1Gibps", "full", "1.0 gibibits per second"],
+            ["1Gibps", "short", "1.0 Gibps"],
+        ],
+    )
+    def test_normal_default_unit(self, value, style, expected):
+        assert BitsPerSecond(value).to_humanreadable(style=style) == expected
