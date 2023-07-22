@@ -232,7 +232,7 @@ class Time(HumanReadableValue):
         items = []
 
         if self.days >= 1:
-            items.append(f"{self.days:d}{_to_unit_str(self.Unit.DAY, style)}")
+            items.append(f"{int(self.days):d}{_to_unit_str(self.Unit.DAY, style)}")
         if self.hours % 24 >= 1:
             items.append(f"{int(self.hours) % 24:d}{_to_unit_str(self.Unit.HOUR, style)}")
         if self.minutes % 60 >= 1:

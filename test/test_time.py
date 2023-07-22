@@ -231,6 +231,7 @@ class Test_Time_to_humanreadable:
             ["0", Time.Unit.SECOND, "full", "0 seconds"],
             ["4000", Time.Unit.SECOND, "full", "1 hours 6 minutes 40 seconds"],
             ["4000", Time.Unit.SECOND, "short", "1h 6m 40s"],
+            ["400000", Time.Unit.SECOND, "short", "4d 15h 6m 40s"],
         ],
     )
     def test_normal_default_unit(self, value, default_unit, style, expected):
