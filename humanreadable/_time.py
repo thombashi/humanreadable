@@ -212,7 +212,7 @@ class Time(HumanReadableValue):
         return getattr(self, unit_maps[norm_unit])
 
     def to_humanreadable(self, style: HumanReadableStyle = "full") -> str:
-        def _to_unit_str(unit, style: str) -> str:
+        def _to_unit_str(unit: SupportsUnit, style: str) -> str:
             if style in ("short", "abbr"):
                 return unit.name[0]
 
