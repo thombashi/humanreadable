@@ -239,7 +239,7 @@ class Time(HumanReadableValue):
             return unit.name
 
         style = style.strip().lower()
-        items = []
+        items: List[str] = []
 
         if self.days >= 1:
             items.append(f"{int(self.days):d}{_to_unit_str(self.Unit.DAY, style)}")
