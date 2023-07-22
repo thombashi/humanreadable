@@ -40,7 +40,7 @@ class ByteUnit(NamedTuple):
     full_unit_expr: str
 
 
-class BitPerSecond(HumanReadableValue):
+class BitsPerSecond(HumanReadableValue):
     """
     String converter that human-readable byte size to a number.
 
@@ -241,9 +241,9 @@ class BitPerSecond(HumanReadableValue):
     def __ge__(self, other) -> bool:
         return self.bps >= other.bps
 
-    def __add__(self, other: "BitPerSecond") -> "BitPerSecond":
+    def __add__(self, other: "BitsPerSecond") -> "BitsPerSecond":
         number = self._number + Decimal(other.get_as(self._from_unit))
-        return BitPerSecond(str(number), default_unit=self._from_unit)
+        return BitsPerSecond(str(number), default_unit=self._from_unit)
 
     def get_as(self, unit: Union[str, SupportsUnit]) -> float:
         unit_maps: Dict[SupportsUnit, str] = {
@@ -301,4 +301,4 @@ class BitPerSecond(HumanReadableValue):
         raise ValueError("unit not found")
 
 
-BitsPerSecond = BitPerSecond
+BitPerSecond = BitsPerSecond

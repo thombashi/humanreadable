@@ -7,7 +7,7 @@ from decimal import Decimal
 
 import pytest
 
-from humanreadable import BitPerSecond, BitsPerSecond, ParameterError, UnitNotFoundError
+from humanreadable import BitsPerSecond, ParameterError, UnitNotFoundError
 
 
 KILO = Decimal(1000**1)
@@ -20,7 +20,7 @@ GIBI = Decimal(1024**3)
 TEBI = Decimal(1024**4)
 
 
-class Test_BitPerSecond_constructor:
+class Test_BitsPerSecond_constructor:
     @pytest.mark.parametrize(
         ["value", "exception"],
         [
@@ -40,10 +40,10 @@ class Test_BitPerSecond_constructor:
     )
     def test_exception(self, value, exception):
         with pytest.raises(exception):
-            BitPerSecond(value).bps
+            BitsPerSecond(value).bps
 
 
-class Test_BitPerSecond_repr:
+class Test_BitsPerSecond_repr:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -51,10 +51,10 @@ class Test_BitPerSecond_repr:
         ],
     )
     def test_exception(self, value, expected):
-        assert str(BitPerSecond(value)) == expected
+        assert str(BitsPerSecond(value)) == expected
 
 
-class Test_BitPerSecond_eq:
+class Test_BitsPerSecond_eq:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [
@@ -65,11 +65,11 @@ class Test_BitPerSecond_eq:
         ],
     )
     def test_exception(self, lhs, rhs, expected):
-        assert (BitPerSecond(lhs) == BitPerSecond(rhs)) is expected
-        assert (BitPerSecond(lhs) == BitsPerSecond(rhs)) is expected
+        assert (BitsPerSecond(lhs) == BitsPerSecond(rhs)) is expected
+        assert (BitsPerSecond(lhs) == BitsPerSecond(rhs)) is expected
 
 
-class Test_BitPerSecond_add:
+class Test_BitsPerSecond_add:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [
@@ -77,10 +77,10 @@ class Test_BitPerSecond_add:
         ],
     )
     def test_exception(self, lhs, rhs, expected):
-        assert (BitPerSecond(lhs) + BitPerSecond(rhs)) == BitPerSecond(expected)
+        assert (BitsPerSecond(lhs) + BitsPerSecond(rhs)) == BitsPerSecond(expected)
 
 
-class Test_BitPerSecond_less_than:
+class Test_BitsPerSecond_less_than:
     @pytest.mark.parametrize(
         ["lhs", "rhs", "expected"],
         [
@@ -90,8 +90,8 @@ class Test_BitPerSecond_less_than:
         ],
     )
     def test_exception(self, lhs, rhs, expected):
-        lhs = BitPerSecond(lhs)
-        rhs = BitPerSecond(rhs)
+        lhs = BitsPerSecond(lhs)
+        rhs = BitsPerSecond(rhs)
 
         print(f"lhs={lhs.mega_bps}Mbps, rhs={rhs.mega_bps}Mbps", file=sys.stderr)
 
@@ -99,7 +99,7 @@ class Test_BitPerSecond_less_than:
         assert (lhs <= rhs) is expected
 
 
-class Test_BitPerSecond_bps:
+class Test_BitsPerSecond_bps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -121,12 +121,12 @@ class Test_BitPerSecond_bps:
         ],
     )
     def test_normal(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.bps == expected
         assert value.byte_per_sec == value.bps / 8
 
 
-class Test_BitPerSecond_kbps:
+class Test_BitsPerSecond_kbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -142,7 +142,7 @@ class Test_BitPerSecond_kbps:
         ],
     )
     def test_normal_kilo(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.kilo_bps == float(expected)
         assert value.kilo_byte_per_sec == value.kilo_bps / 8
 
@@ -160,27 +160,27 @@ class Test_BitPerSecond_kbps:
         ],
     )
     def test_normal_kibi(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.kibi_bps == expected
         assert value.kibi_byte_per_sec == value.kibi_bps / 8
 
     @pytest.mark.parametrize(
         ["value", "default_unit", "expected"],
         [
-            ["2", BitPerSecond.Unit.KBPS, 2],
+            ["2", BitsPerSecond.Unit.KBPS, 2],
             ["2", "kbps", 2],
-            ["2", BitPerSecond.Unit.MBPS, 2000],
+            ["2", BitsPerSecond.Unit.MBPS, 2000],
             ["2", "mbps", 2000],
         ],
     )
     def test_normal_default_unit(self, value, default_unit, expected):
-        bps = BitPerSecond(value, default_unit=default_unit)
+        bps = BitsPerSecond(value, default_unit=default_unit)
         print(bps, file=sys.stderr)
 
         assert bps.kilo_bps == expected
 
 
-class Test_BitPerSecond_mbps:
+class Test_BitsPerSecond_mbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -196,7 +196,7 @@ class Test_BitPerSecond_mbps:
         ],
     )
     def test_normal_mega(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.mega_bps == float(expected)
         assert value.mega_byte_per_sec == value.mega_bps / 8
 
@@ -214,12 +214,12 @@ class Test_BitPerSecond_mbps:
         ],
     )
     def test_normal_mebi(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.mebi_bps == expected
         assert value.mebi_byte_per_sec == value.mebi_bps / 8
 
 
-class Test_BitPerSecond_gbps:
+class Test_BitsPerSecond_gbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -235,7 +235,7 @@ class Test_BitPerSecond_gbps:
         ],
     )
     def test_normal_giga(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.giga_bps == float(expected)
         assert value.giga_byte_per_sec == value.giga_bps / 8
 
@@ -253,12 +253,12 @@ class Test_BitPerSecond_gbps:
         ],
     )
     def test_normal_gibi(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.gibi_bps == expected
         assert value.gibi_byte_per_sec == value.gibi_bps / 8
 
 
-class Test_BitPerSecond_tbps:
+class Test_BitsPerSecond_tbps:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -274,7 +274,7 @@ class Test_BitPerSecond_tbps:
         ],
     )
     def test_normal_tera(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.tera_bps == float(expected)
         assert value.tera_byte_per_sec == value.tera_bps / 8
 
@@ -292,30 +292,30 @@ class Test_BitPerSecond_tbps:
         ],
     )
     def test_normal_gibi(self, value, expected):
-        value = BitPerSecond(value)
+        value = BitsPerSecond(value)
         assert value.tebi_bps == expected
         assert value.tebi_byte_per_sec == value.tebi_bps / 8
 
 
-class Test_BitPerSecond_get_as:
+class Test_BitsPerSecond_get_as:
     @pytest.mark.parametrize(
         ["value", "default_unit", "expected"],
         [
-            ["2bps", BitPerSecond.Unit.BPS, 2],
-            ["2Kbps", BitPerSecond.Unit.KBPS, 2],
-            ["2Kibps", BitPerSecond.Unit.KIBPS, 2],
-            ["2Mbps", BitPerSecond.Unit.MBPS, 2],
-            ["2Mibps", BitPerSecond.Unit.MIBPS, 2],
-            ["2Gbps", BitPerSecond.Unit.GBPS, 2],
+            ["2bps", BitsPerSecond.Unit.BPS, 2],
+            ["2Kbps", BitsPerSecond.Unit.KBPS, 2],
+            ["2Kibps", BitsPerSecond.Unit.KIBPS, 2],
+            ["2Mbps", BitsPerSecond.Unit.MBPS, 2],
+            ["2Mibps", BitsPerSecond.Unit.MIBPS, 2],
+            ["2Gbps", BitsPerSecond.Unit.GBPS, 2],
             ["2Gbps", "gbps", 2],
-            ["2Gibps", BitPerSecond.Unit.GIBPS, 2],
-            ["2Tbps", BitPerSecond.Unit.TBPS, 2],
+            ["2Gibps", BitsPerSecond.Unit.GIBPS, 2],
+            ["2Tbps", BitsPerSecond.Unit.TBPS, 2],
             ["2Tbps", "tbps", 2],
-            ["2Tibps", BitPerSecond.Unit.TIBPS, 2],
+            ["2Tibps", BitsPerSecond.Unit.TIBPS, 2],
         ],
     )
     def test_normal_default_unit(self, value, default_unit, expected):
-        bps = BitPerSecond(value, default_unit=default_unit)
+        bps = BitsPerSecond(value, default_unit=default_unit)
         print(bps, file=sys.stderr)
 
         assert bps.get_as(default_unit) == expected
