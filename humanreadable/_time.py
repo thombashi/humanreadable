@@ -10,7 +10,7 @@ from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
-from ._types import SupportsUnit, TextUnitsMap, Units
+from ._types import HumanReadableStyle, SupportsUnit, TextUnitsMap, Units
 from .error import ParameterError
 
 
@@ -211,7 +211,7 @@ class Time(HumanReadableValue):
 
         return getattr(self, unit_maps[norm_unit])
 
-    def to_humanreadable(self, style: str = "full") -> str:
+    def to_humanreadable(self, style: HumanReadableStyle = "full") -> str:
         def _to_unit_str(unit, style: str) -> str:
             if style in ("short", "abbr"):
                 return unit.name[0]
@@ -221,7 +221,6 @@ class Time(HumanReadableValue):
 
             return unit.name
 
-        style = style.strip().lower()
         items: List[str] = []
 
         if self.days >= 1:
