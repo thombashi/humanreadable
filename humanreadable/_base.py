@@ -29,7 +29,7 @@ class SupportsUnit(Protocol):
         ...
 
 
-Units = List[str]
+Units = Tuple[str, ...]
 TextUnitsMap = Dict[SupportsUnit, Units]
 
 

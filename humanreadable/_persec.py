@@ -4,29 +4,37 @@
 
 import re
 from collections import OrderedDict
+from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
-from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap
+from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap, Units
 
 
-_PATTERN_TEMPLETE = r"\s?{}$"
-_BPS_PATTERN = r"bits?(/|\s?per\s?)(s|sec|second)"
+try:
+    from typing import Final
+except ImportError:
+    # typing.Final and typing.Protocol are only available starting from Python 3.8.
+    from ._typing import Final  # type: ignore
 
-_BPS_STR_UNITS = ["bps", _BPS_PATTERN]
-_KBPS_STR_UNITS = ["[kK]bps", "[kK]" + _BPS_PATTERN]
-_KIBPS_STR_UNITS = ["[kK]ibps", "[kK]i" + _BPS_PATTERN]
-_MBPS_STR_UNITS = ["[mM]bps", "[mM]" + _BPS_PATTERN]
-_MIBPS_STR_UNITS = ["[mM]ibps", "[mM]i" + _BPS_PATTERN]
-_GBPS_STR_UNITS = ["[gG]bps", "[gG]" + _BPS_PATTERN]
-_GIBPS_STR_UNITS = ["[gG]ibps", "[gG]i" + _BPS_PATTERN]
-_TBPS_STR_UNITS = ["[tT]bps", "[tT]" + _BPS_PATTERN]
-_TIBPS_STR_UNITS = ["[tT]ibps", "[tT]i" + _BPS_PATTERN]
+
+_PATTERN_TEMPLETE: Final[str] = r"\s?{}$"
+_BPS_PATTERN: Final[str] = r"bits?(/|\s?per\s?)(s|sec|second)"
+
+_BPS_STR_UNITS: Final[Units] = ("bps", _BPS_PATTERN)
+_KBPS_STR_UNITS: Final[Units] = ("[kK]bps", "[kK]" + _BPS_PATTERN)
+_KIBPS_STR_UNITS: Final[Units] = ("[kK]ibps", "[kK]i" + _BPS_PATTERN)
+_MBPS_STR_UNITS: Final[Units] = ("[mM]bps", "[mM]" + _BPS_PATTERN)
+_MIBPS_STR_UNITS: Final[Units] = ("[mM]ibps", "[mM]i" + _BPS_PATTERN)
+_GBPS_STR_UNITS: Final[Units] = ("[gG]bps", "[gG]" + _BPS_PATTERN)
+_GIBPS_STR_UNITS: Final[Units] = ("[gG]ibps", "[gG]i" + _BPS_PATTERN)
+_TBPS_STR_UNITS: Final[Units] = ("[tT]bps", "[tT]" + _BPS_PATTERN)
+_TIBPS_STR_UNITS: Final[Units] = ("[tT]ibps", "[tT]i" + _BPS_PATTERN)
 
 
 class ByteUnit(NamedTuple):
     name: str
-    regexp: Pattern
+    regexp: Pattern[str]
     kilo_size: int
     factor: int
 
@@ -115,7 +123,7 @@ class BitPerSecond(HumanReadableValue):
             factor=4,
         )
 
-    _TEXT_UNITS: TextUnitsMap = OrderedDict(
+    _TEXT_UNITS: Final[TextUnitsMap] = OrderedDict(
         {
             Unit.KBPS: _KBPS_STR_UNITS,
             Unit.KIBPS: _KIBPS_STR_UNITS,

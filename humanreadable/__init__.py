@@ -4,7 +4,7 @@ from ._time import Time
 from .error import ParameterError, UnitNotFoundError
 
 
-__all__ = (  # type: ignore
+__all__ = (
     "__author__",
     "__copyright__",
     "__email__",

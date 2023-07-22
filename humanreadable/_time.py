@@ -4,26 +4,34 @@
 
 import re
 from collections import OrderedDict
+from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
-from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap
+from ._base import HumanReadableValue, SupportsUnit, TextUnitsMap, Units
 from .error import ParameterError
 
 
-_PATTERN_TEMPLETE = r"\s?{}$"
+try:
+    from typing import Final
+except ImportError:
+    # typing.Final and typing.Protocol are only available starting from Python 3.8.
+    from ._typing import Final  # type: ignore
 
-_DAY_STR_UNITS = ["d", "day", "days"]
-_HOUR_STR_UNITS = ["h", "hour", "hours"]
-_MINUTE_STR_UNITS = ["m", "min", "mins", "minute", "minutes"]
-_SEC_STR_UNITS = ["s", "sec", "secs", "second", "seconds"]
-_MSEC_STR_UNITS = ["ms", "msec", "msecs", "millisecond", "milliseconds"]
-_USEC_STR_UNITS = ["us", "usec", "usecs", "microsecond", "microseconds"]
+
+_PATTERN_TEMPLETE: Final[str] = r"\s?{}$"
+
+_DAY_STR_UNITS: Final[Units] = ("d", "day", "days")
+_HOUR_STR_UNITS: Final[Units] = ("h", "hour", "hours")
+_MINUTE_STR_UNITS: Final[Units] = ("m", "min", "mins", "minute", "minutes")
+_SEC_STR_UNITS: Final[Units] = ("s", "sec", "secs", "second", "seconds")
+_MSEC_STR_UNITS: Final[Units] = ("ms", "msec", "msecs", "millisecond", "milliseconds")
+_USEC_STR_UNITS: Final[Units] = ("us", "usec", "usecs", "microsecond", "microseconds")
 
 
 class TimeUnit(NamedTuple):
     name: str
-    regexp: Pattern
+    regexp: Pattern[str]
     thousand_factor: int
     sixty_factor: int
     day_factor: int
@@ -91,7 +99,7 @@ class Time(HumanReadableValue):
             day_factor=1,
         )
 
-    _TEXT_UNITS: TextUnitsMap = OrderedDict(
+    _TEXT_UNITS: Final[TextUnitsMap] = OrderedDict(
         {
             Unit.DAY: _DAY_STR_UNITS,
             Unit.HOUR: _HOUR_STR_UNITS,
@@ -182,7 +190,7 @@ class Time(HumanReadableValue):
         number = self._number + Decimal(other.get_as(self._from_unit))
         return Time(str(number), default_unit=self._from_unit)
 
-    def validate(self, min_value=None, max_value=None):
+    def validate(self, min_value=None, max_value=None) -> None:
         if min_value is not None:
             if not isinstance(min_value, Time):
                 min_value = Time(min_value)
