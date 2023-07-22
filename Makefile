@@ -26,7 +26,8 @@ check:
 
 .PHONY: clean
 clean:
-	@$(PYTHON) -m tox -e clean
+	rm -rf $(BUILD_WORK_DIR)
+	$(PYTHON) -m tox -e clean
 
 .PHONY: fmt
 fmt:
