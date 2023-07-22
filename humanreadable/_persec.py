@@ -2,13 +2,13 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-import re
 from collections import OrderedDict
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
 from ._base import HumanReadableValue
+from ._common import compile_units_regex_pattern
 from ._types import SupportsUnit, TextUnitsMap, Units
 
 
@@ -19,7 +19,6 @@ except ImportError:
     from ._typing import Final  # type: ignore
 
 
-_PATTERN_TEMPLETE: Final[str] = r"\s?{}$"
 _BPS_PATTERN: Final[str] = r"bits?(/|\s?per\s?)(s|sec|second)"
 
 _BPS_STR_UNITS: Final[Units] = ("bps", _BPS_PATTERN)
@@ -53,73 +52,55 @@ class BitPerSecond(HumanReadableValue):
     class Unit:
         BPS = ByteUnit(
             name="bps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _BPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_BPS_STR_UNITS),
             kilo_size=1000,
             factor=0,
         )
         KBPS = ByteUnit(
             name="Kbps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _KBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_KBPS_STR_UNITS),
             kilo_size=1000,
             factor=1,
         )
         KIBPS = ByteUnit(
             name="Kibps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _KIBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_KIBPS_STR_UNITS),
             kilo_size=1024,
             factor=1,
         )
         MBPS = ByteUnit(
             name="Mbps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _MBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_MBPS_STR_UNITS),
             kilo_size=1000,
             factor=2,
         )
         MIBPS = ByteUnit(
             name="Mibps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _MIBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_MIBPS_STR_UNITS),
             kilo_size=1024,
             factor=2,
         )
         GBPS = ByteUnit(
             name="Gbps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _GBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_GBPS_STR_UNITS),
             kilo_size=1000,
             factor=3,
         )
         GIBPS = ByteUnit(
             name="Gibps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _GIBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_GIBPS_STR_UNITS),
             kilo_size=1024,
             factor=3,
         )
         TBPS = ByteUnit(
             name="Tbps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _TBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_TBPS_STR_UNITS),
             kilo_size=1000,
             factor=4,
         )
         TIBPS = ByteUnit(
             name="Tibps",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _TIBPS_STR_UNITS])
-            ),
+            regexp=compile_units_regex_pattern(_TIBPS_STR_UNITS),
             kilo_size=1024,
             factor=4,
         )

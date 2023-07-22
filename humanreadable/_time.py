@@ -9,6 +9,7 @@ from decimal import Decimal
 from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
 
 from ._base import HumanReadableValue
+from ._common import compile_units_regex_pattern
 from ._types import SupportsUnit, TextUnitsMap, Units
 from .error import ParameterError
 
@@ -19,8 +20,6 @@ except ImportError:
     # typing.Final and typing.Protocol are only available starting from Python 3.8.
     from ._typing import Final  # type: ignore
 
-
-_PATTERN_TEMPLETE: Final[str] = r"\s?{}$"
 
 _DAY_STR_UNITS: Final[Units] = ("d", "day", "days")
 _HOUR_STR_UNITS: Final[Units] = ("h", "hour", "hours")
@@ -43,58 +42,42 @@ class Time(HumanReadableValue):
     class Unit:
         DAY = TimeUnit(
             name="days",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _DAY_STR_UNITS]), re.IGNORECASE
-            ),
+            regexp=compile_units_regex_pattern(_DAY_STR_UNITS, re.IGNORECASE),
             thousand_factor=0,
             sixty_factor=0,
             day_factor=0,
         )
         HOUR = TimeUnit(
             name="hours",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _HOUR_STR_UNITS]),
-                re.IGNORECASE,
-            ),
+            regexp=compile_units_regex_pattern(_HOUR_STR_UNITS, re.IGNORECASE),
             thousand_factor=0,
             sixty_factor=0,
             day_factor=1,
         )
         MINUTE = TimeUnit(
             name="minutes",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _MINUTE_STR_UNITS]),
-                re.IGNORECASE,
-            ),
+            regexp=compile_units_regex_pattern(_MINUTE_STR_UNITS, re.IGNORECASE),
             thousand_factor=0,
             sixty_factor=1,
             day_factor=1,
         )
         SECOND = TimeUnit(
             name="seconds",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _SEC_STR_UNITS]), re.IGNORECASE
-            ),
+            regexp=compile_units_regex_pattern(_SEC_STR_UNITS, re.IGNORECASE),
             thousand_factor=0,
             sixty_factor=2,
             day_factor=1,
         )
         MILLISECOND = TimeUnit(
             name="milliseconds",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _MSEC_STR_UNITS]),
-                re.IGNORECASE,
-            ),
+            regexp=compile_units_regex_pattern(_MSEC_STR_UNITS, re.IGNORECASE),
             thousand_factor=1,
             sixty_factor=2,
             day_factor=1,
         )
         MICROSECOND = TimeUnit(
             name="microseconds",
-            regexp=re.compile(
-                "|".join([_PATTERN_TEMPLETE.format(unit) for unit in _USEC_STR_UNITS]),
-                re.IGNORECASE,
-            ),
+            regexp=compile_units_regex_pattern(_USEC_STR_UNITS, re.IGNORECASE),
             thousand_factor=2,
             sixty_factor=2,
             day_factor=1,
