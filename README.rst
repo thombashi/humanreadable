@@ -19,8 +19,8 @@ humanreadable is a Python library to convert human-readable values to other unit
     :target: https://pypi.org/project/humanreadable
     :alt: Supported Python implementations
 
-.. image:: https://github.com/thombashi/humanreadable/actions/workflows/lint_and_test.yml/badge.svg
-    :target: https://github.com/thombashi/humanreadable/actions/workflows/lint_and_test.yml
+.. image:: https://github.com/thombashi/humanreadable/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/thombashi/humanreadable/actions/workflows/ci.yml
     :alt: CI status of Linux/macOS/Windows
 
 .. image:: https://coveralls.io/repos/github/thombashi/humanreadable/badge.svg?branch=master
@@ -171,5 +171,5 @@ Installation: apt (for Ubuntu)
 
 Dependencies
 ============================================
-- Python 3.7+
+- Python 3.9+
 - `Python package dependencies (automatically installed) <https://github.com/thombashi/humanreadable/network/dependencies>`__
