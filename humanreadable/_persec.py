@@ -6,18 +6,11 @@ from collections import OrderedDict
 from dataclasses import dataclass
 from decimal import Decimal
 from re import Pattern
-from typing import NamedTuple, Optional, Union, cast
+from typing import Final, NamedTuple, Optional, Union, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
 from ._types import HumanReadableStyle, SupportsUnit, TextUnitsMap, Units
-
-
-try:
-    from typing import Final
-except ImportError:
-    # typing.Final and typing.Protocol are only available starting from Python 3.8.
-    from ._typing import Final  # type: ignore
 
 
 _BPS_PATTERN: Final[str] = r"bits?(/|\s?per\s?)(s|sec|second)"

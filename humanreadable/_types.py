@@ -1,11 +1,5 @@
 from re import Pattern
-
-
-try:
-    from typing import Literal, Protocol
-except ImportError:
-    # typing.Final and typing.Protocol are only available starting from Python 3.8.
-    from ._typing import Literal, Protocol  # type: ignore
+from typing import Literal, Protocol
 
 
 class SupportsUnit(Protocol):

@@ -6,19 +6,12 @@ import abc
 import re
 from decimal import Decimal
 from re import Pattern
-from typing import Optional, Union, cast
+from typing import Final, Optional, Union, cast
 
 from typepy import RealNumber, String
 
 from ._types import SupportsUnit, TextUnitsMap
 from .error import ParameterError, UnitNotFoundError
-
-
-try:
-    from typing import Final
-except ImportError:
-    # typing.Final and typing.Protocol are only available starting from Python 3.8.
-    from ._typing import Final  # type: ignore
 
 
 _RE_NUMBER: Final[Pattern] = re.compile(r"^[-\+]?[0-9\.]+$")

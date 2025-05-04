@@ -1,8 +1,4 @@
-try:
-    from typing import Final
-except ImportError:
-    # typing.Final and typing.Protocol are only available starting from Python 3.8.
-    from ._typing import Final  # type: ignore
+from typing import Final
 
 
 PATTERN_TEMPLETE: Final[str] = r"\s?{}$"
