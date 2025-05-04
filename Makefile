@@ -40,9 +40,10 @@ release:
 
 .PHONY: setup-ci
 setup-ci:
-	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade tox
+	$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade pip
+	$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade tox
 
-.PHONY: setup
-setup: setup-ci
-	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade -e .[test] releasecmd
+.PHONY: setup-dev
+setup-dev: setup-ci
+	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade -e .[test]
 	@$(PYTHON) -m pip check
