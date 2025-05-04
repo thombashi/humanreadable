@@ -51,6 +51,10 @@ setup-dev: setup-ci
 	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade -e .[test]
 	@$(PYTHON) -m pip check
 
+.PHONY: test
+test:
+	$(PYTHON) -m tox -e py
+
 .PHONY: update-copyright
 update-copyright:
 	sed -i "s/f\"Copyright .*/f\"Copyright $(FIRST_RELEASE_YEAR)-$(LAST_UPDATE_YEAR), {__author__}\"/" $(PACKAGE)/__version__.py
