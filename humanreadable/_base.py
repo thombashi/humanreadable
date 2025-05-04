@@ -28,11 +28,13 @@ def _get_unit_msg(text_units: TextUnitsMap) -> str:
 
 
 class HumanReadableValue(metaclass=abc.ABCMeta):
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def _text_units(self) -> TextUnitsMap:  # pragma: no cover
         pass
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def _units(self) -> List[SupportsUnit]:  # pragma: no cover
         pass
 
