@@ -1,5 +1,5 @@
 import re
-from typing import Pattern
+from re import Pattern
 
 from ._const import PATTERN_TEMPLETE
 from ._types import Units

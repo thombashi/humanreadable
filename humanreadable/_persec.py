@@ -5,7 +5,8 @@
 from collections import OrderedDict
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
+from re import Pattern
+from typing import NamedTuple, Optional, Union, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
@@ -138,7 +139,7 @@ class BitsPerSecond(HumanReadableValue):
         return self._TEXT_UNITS
 
     @property
-    def _units(self) -> List[SupportsUnit]:
+    def _units(self) -> list[SupportsUnit]:
         return [
             self.Unit.BPS,
             self.Unit.KBPS,
@@ -246,7 +247,7 @@ class BitsPerSecond(HumanReadableValue):
         return BitsPerSecond(str(number), default_unit=self._from_unit)
 
     def get_as(self, unit: Union[str, SupportsUnit]) -> float:
-        unit_maps: Dict[SupportsUnit, str] = {
+        unit_maps: dict[SupportsUnit, str] = {
             self.Unit.BPS: "bps",
             self.Unit.KBPS: "kilo_bps",
             self.Unit.KIBPS: "kibi_bps",
@@ -278,8 +279,8 @@ class BitsPerSecond(HumanReadableValue):
         )
 
     def __filter_units_by_k(
-        self, units: List[SupportsUnit], from_unit: SupportsUnit
-    ) -> List[SupportsUnit]:
+        self, units: list[SupportsUnit], from_unit: SupportsUnit
+    ) -> list[SupportsUnit]:
         from_unit_bu = cast(ByteUnit, from_unit)
         return [u for u in units if cast(ByteUnit, u).k_size == from_unit_bu.k_size]
 

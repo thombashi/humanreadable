@@ -6,7 +6,8 @@ import re
 from collections import OrderedDict
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Dict, List, NamedTuple, Optional, Pattern, Union, cast
+from re import Pattern
+from typing import NamedTuple, Optional, Union, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
@@ -127,7 +128,7 @@ class Time(HumanReadableValue):
         return self._TEXT_UNITS
 
     @property
-    def _units(self) -> List[SupportsUnit]:
+    def _units(self) -> list[SupportsUnit]:
         return [
             self.Unit.DAY,
             self.Unit.HOUR,
@@ -198,7 +199,7 @@ class Time(HumanReadableValue):
                 )
 
     def get_as(self, unit: Union[str, SupportsUnit]) -> float:
-        unit_maps: Dict[SupportsUnit, str] = {
+        unit_maps: dict[SupportsUnit, str] = {
             self.Unit.DAY: "days",
             self.Unit.HOUR: "hours",
             self.Unit.MINUTE: "minutes",
@@ -221,7 +222,7 @@ class Time(HumanReadableValue):
 
             return unit.name
 
-        items: List[str] = []
+        items: list[str] = []
 
         if self.days >= 1:
             items.append(f"{int(self.days):d}{_to_unit_str(self.Unit.DAY, style)}")

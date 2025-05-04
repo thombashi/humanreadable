@@ -1,4 +1,4 @@
-from typing import Dict, Pattern, Tuple
+from re import Pattern
 
 
 try:
@@ -18,6 +18,6 @@ class SupportsUnit(Protocol):
         ...
 
 
-Units = Tuple[str, ...]
-TextUnitsMap = Dict[SupportsUnit, Units]
+Units = tuple[str, ...]
+TextUnitsMap = dict[SupportsUnit, Units]
 HumanReadableStyle = Literal["full", "short", "abbr"]

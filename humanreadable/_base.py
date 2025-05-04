@@ -5,7 +5,8 @@
 import abc
 import re
 from decimal import Decimal
-from typing import List, Optional, Pattern, Tuple, Union, cast
+from re import Pattern
+from typing import Optional, Union, cast
 
 from typepy import RealNumber, String
 
@@ -35,7 +36,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
 
     @property
     @abc.abstractmethod
-    def _units(self) -> List[SupportsUnit]:  # pragma: no cover
+    def _units(self) -> list[SupportsUnit]:  # pragma: no cover
         pass
 
     @abc.abstractmethod
@@ -65,7 +66,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
 
         raise ValueError(f"unit not found: {unit}")
 
-    def __split_unit(self, readable_value: str) -> Tuple[str, SupportsUnit]:
+    def __split_unit(self, readable_value: str) -> tuple[str, SupportsUnit]:
         if RealNumber(readable_value).is_type():
             if self._default_unit is None:
                 raise UnitNotFoundError(
@@ -94,7 +95,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
             "unit not found", value=readable_value, available_units=_get_unit_msg(self._text_units)
         )
 
-    def __preprocess(self, readable_value: str) -> Tuple[Decimal, SupportsUnit]:
+    def __preprocess(self, readable_value: str) -> tuple[Decimal, SupportsUnit]:
         if readable_value is None:
             raise TypeError("readable_value must be a string")
 
