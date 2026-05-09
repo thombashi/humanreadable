@@ -233,8 +233,8 @@ class Time(HumanReadableValue):
             )
 
         if not items:
-            assert self._default_unit
-            return f"0 {self._default_unit.name}"
+            unit = self._default_unit or self._from_unit
+            return f"0{_to_unit_str(unit, style)}"
 
         return " ".join(items)
 

@@ -236,3 +236,14 @@ class Test_Time_to_humanreadable:
     )
     def test_normal_default_unit(self, value, default_unit, style, expected):
         assert Time(value, default_unit=default_unit).to_humanreadable(style=style) == expected
+
+    @pytest.mark.parametrize(
+        ["value", "style", "expected"],
+        [
+            ["0s", "full", "0 seconds"],
+            ["0ms", "full", "0 milliseconds"],
+            ["0min", "short", "0m"],
+        ],
+    )
+    def test_normal_zero_without_default_unit(self, value, style, expected):
+        assert Time(value).to_humanreadable(style=style) == expected
