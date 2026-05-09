@@ -7,7 +7,7 @@ from collections import OrderedDict
 from dataclasses import dataclass
 from decimal import Decimal
 from re import Pattern
-from typing import Final, NamedTuple, Optional, Union, cast
+from typing import Final, NamedTuple, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
@@ -131,9 +131,7 @@ class Time(HumanReadableValue):
             self.Unit.MICROSECOND,
         ]
 
-    def __init__(
-        self, readable_value: str, default_unit: Union[str, SupportsUnit, None] = None
-    ) -> None:
+    def __init__(self, readable_value: str, default_unit: str | SupportsUnit | None = None) -> None:
         values = re.findall(r"\d+\s*[a-zA-Z]+", readable_value)
         if len(values) <= 1:
             super().__init__(readable_value, default_unit)
@@ -191,7 +189,7 @@ class Time(HumanReadableValue):
                     value=self,
                 )
 
-    def get_as(self, unit: Union[str, SupportsUnit]) -> float:
+    def get_as(self, unit: str | SupportsUnit) -> float:
         unit_maps: dict[SupportsUnit, str] = {
             self.Unit.DAY: "days",
             self.Unit.HOUR: "hours",
@@ -240,7 +238,7 @@ class Time(HumanReadableValue):
 
         return " ".join(items)
 
-    def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
+    def _normalize_unit(self, unit: str | SupportsUnit | None) -> SupportsUnit | None:
         if isinstance(unit, TimeUnit):
             return unit
 
@@ -255,11 +253,11 @@ class Time(HumanReadableValue):
         return day_coef * sixty_coef * thousand_coef
 
 
-def _parse(value: Union[str, Time], default_unit: Union[str, SupportsUnit, None] = None) -> Time:
+def _parse(value: str | Time, default_unit: str | SupportsUnit | None = None) -> Time:
     if isinstance(value, Time):
         return value
 
-    sum: Optional[Time] = None
+    sum: Time | None = None
 
     for item in reversed(re.findall(r"\d+\s*[a-zA-Z]+", value)):
         t = Time(item, default_unit=default_unit)

@@ -6,7 +6,7 @@ import abc
 import re
 from decimal import Decimal
 from re import Pattern
-from typing import Final, Optional, Union, cast
+from typing import Final, cast
 
 from typepy import RealNumber, String
 
@@ -33,12 +33,10 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def get_as(self, unit: Union[str, SupportsUnit]) -> float:  # pragma: no cover
+    def get_as(self, unit: str | SupportsUnit) -> float:  # pragma: no cover
         pass
 
-    def __init__(
-        self, readable_value: str, default_unit: Union[str, SupportsUnit, None] = None
-    ) -> None:
+    def __init__(self, readable_value: str, default_unit: str | SupportsUnit | None = None) -> None:
         self._default_unit = self._normalize_unit(default_unit)
         self._number, self._from_unit = self.__preprocess(readable_value)
 
@@ -49,7 +47,7 @@ class HumanReadableValue(metaclass=abc.ABCMeta):
 
         return " ".join(items)
 
-    def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
+    def _normalize_unit(self, unit: str | SupportsUnit | None) -> SupportsUnit | None:
         if unit is None:
             return None
 
