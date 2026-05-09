@@ -52,7 +52,7 @@ exclude = [
     "build",
     "dist"
 ]
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 
 [tool.pytest.ini_options]
 md_report = true
@@ -61,7 +61,7 @@ md_report_color = "auto"
 
 [tool.ruff]
 line-length = 100
-target-version = "py39"
+target-version = "py310"
 exclude = [
     ".eggs/",
     ".tox/",
