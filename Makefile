@@ -4,7 +4,7 @@ PKG_BUILD_DIR := $(BUILD_WORK_DIR)/$(PACKAGE)
 
 PYTHON := python3
 
-AUTHOR := thombashi
+AUTHOR := Tsuyoshi Hombashi
 FIRST_RELEASE_YEAR := 2019
 LAST_UPDATE_YEAR := $(shell git log -1 --format=%cd --date=format:%Y)
 
@@ -13,7 +13,7 @@ LAST_UPDATE_YEAR := $(shell git log -1 --format=%cd --date=format:%Y)
 build-remote: clean
 	@mkdir -p $(BUILD_WORK_DIR)
 	@cd $(BUILD_WORK_DIR) && \
-		git clone https://github.com/$(AUTHOR)/$(PACKAGE).git --depth 1 && \
+		git clone https://github.com/thombashi/$(PACKAGE).git --depth 1 && \
 		cd $(PACKAGE) && \
 		$(PYTHON) -m tox -e build
 	ls -lh $(PKG_BUILD_DIR)/dist/*
