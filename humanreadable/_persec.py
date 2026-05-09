@@ -11,6 +11,7 @@ from typing import Final, NamedTuple, cast
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
 from ._types import HumanReadableStyle, SupportsUnit, TextUnitsMap, Units
+from .error import ParameterError
 
 
 _BPS_PATTERN: Final[str] = r"bits?(/|\s?per\s?)(s|sec|second)"
@@ -126,6 +127,14 @@ class BitsPerSecond(HumanReadableValue):
     @classmethod
     def get_text_units(cls) -> TextUnitsMap:
         return cls._TEXT_UNITS
+
+    def __init__(self, readable_value: str, default_unit: str | SupportsUnit | None = None) -> None:
+        super().__init__(readable_value, default_unit)
+        if self._number < 0:
+            raise ParameterError(
+                "bps value must be non-negative",
+                value=readable_value,
+            )
 
     @property
     def _text_units(self) -> TextUnitsMap:
