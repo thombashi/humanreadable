@@ -6,7 +6,7 @@ from collections import OrderedDict
 from dataclasses import dataclass
 from decimal import Decimal
 from re import Pattern
-from typing import Final, NamedTuple, Optional, Union, cast
+from typing import Final, NamedTuple, cast
 
 from ._base import HumanReadableValue
 from ._common import compile_units_regex_pattern
@@ -239,7 +239,7 @@ class BitsPerSecond(HumanReadableValue):
         number = self._number + Decimal(other.get_as(self._from_unit))
         return BitsPerSecond(str(number), default_unit=self._from_unit)
 
-    def get_as(self, unit: Union[str, SupportsUnit]) -> float:
+    def get_as(self, unit: str | SupportsUnit) -> float:
         unit_maps: dict[SupportsUnit, str] = {
             self.Unit.BPS: "bps",
             self.Unit.KBPS: "kilo_bps",
@@ -256,7 +256,7 @@ class BitsPerSecond(HumanReadableValue):
 
         return getattr(self, unit_maps[norm_unit])
 
-    def _normalize_unit(self, unit: Union[str, SupportsUnit, None]) -> Optional[SupportsUnit]:
+    def _normalize_unit(self, unit: str | SupportsUnit | None) -> SupportsUnit | None:
         if isinstance(unit, ByteUnit):
             return unit
 
